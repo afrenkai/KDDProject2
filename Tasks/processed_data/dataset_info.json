@@ -37,18 +37,14 @@
   },
   "download_size": 2970796741,
   "features": {
+    "image": {
+      "_type": "Image"
+    },
     "style": {
       "dtype": "string",
       "_type": "Value"
     },
-    "img_pixels": {
-      "feature": {
-        "dtype": "float64",
-        "_type": "Value"
-      },
-      "_type": "Sequence"
-    },
-    "y": {
+    "label": {
       "dtype": "int64",
       "_type": "Value"
     }
