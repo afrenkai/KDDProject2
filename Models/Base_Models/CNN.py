@@ -29,7 +29,7 @@ class CNN(nn.Module):
     
     def forward(self, x):
         x = self.pool(torch.relu(self.conv1(x)))
-        x = self.pool(torch.relu(self.covn2(x)))
+        x = self.pool(torch.relu(self.conv2(x)))
         x = self.pool(torch.relu(self.conv3(x)))
         x = x.view(-1, 128 * 8 * 8) # flatten here
         x = torch.relu(self.fc1(x)) #1st fully connected layer
@@ -74,13 +74,13 @@ class CNNClassifier():
 
     
     def split_data(self):
-        X = np.arrat([img for img in self.train['img_pixels']]) #3d shenanigans
+        X = np.array([img for img in self.train_ds['img_pixels']]) #3d shenanigans
         y = np.array(self.train_ds['label'])
 
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size= 0.2, random_state= 69)
 
         train_dataset = ImgDataset(self.X_train, self.y_train)
-        test_dataset = ImgDataset(self.X_test. self.y_test)
+        test_dataset = ImgDataset(self.X_test, self.y_test)
 
         self.train_loader = DataLoader(train_dataset, batch_size=self.batch_size, shuffle = True)
         self.test_loader = DataLoader(test_dataset, batch_size=self.batch_size, shuffle = False)
@@ -144,5 +144,5 @@ class CNNClassifier():
 
 
 if __name__ == '__main__':
-    classifier = CNNClassifier(dataset_name= "jlbaker361/wikiart")
+    classifier = CNNClassifier(dataset_name= "jlbaker361/wikiart", n_obs= 1000)
     classifier.run()
