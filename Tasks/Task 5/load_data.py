@@ -9,6 +9,6 @@ def load_train_data(for_CNN=False, num_samples=None):
     else: 
         path += 'regular' # shape = (HEIGHT*WIDTH)
     ds = load_from_disk(SAVE_DIR)
-    if num_samples != None:
+    if num_samples is not None:
         ds = ds.select(range(num_samples))
     return ds['img_pixels'], ds['y']

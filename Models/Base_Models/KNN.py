@@ -27,7 +27,7 @@ class KNNImageClassifier:
                 x['img_pixels'] = None
             return x
 
-        self.train_ds = self.train_ds.map(convert_img, num_proc=4)
+        self.train_ds = self.train_ds.map(convert_img)
 
         self.train_ds = self.train_ds.filter(lambda x: x['img_pixels'] is not None)
 
@@ -65,5 +65,5 @@ class KNNImageClassifier:
         self.train()
         self.evaluate()
 if __name__ == '__main__':
-    classifier = KNNImageClassifier(dataset_name="jlbaker361/wikiart", n_obs=40000, n_neighbors=5) 
+    classifier = KNNImageClassifier(dataset_name="jlbaker361/wikiart", n_obs=5000, n_neighbors=5) 
     classifier.run()
