@@ -154,7 +154,7 @@ class CNNClassifier():
             print(f"Accuracy for class {self.unique_styles[class_idx]}: {accuracy:.2f}%")
 
     def eval(self, calculate_f1=False, calculate_top_k=False, calculate_log_loss=False, calculate_class_accuracy=False):
-        self.model.load_state_dict(torch.load('cnn_model.pth', map_location=self.device))
+        self.model.load_state_dict(torch.load('cnn_model.pth', map_location=self.device, weights_only=True))
         self.model.eval()
 
         correct = 0
@@ -200,8 +200,8 @@ class CNNClassifier():
         if calculate_class_accuracy:
             self.eval_class_wise_accuracy()
 
-        print("Confusion Matrix:")
-        print(confusion_matrix(all_labels, all_preds))
+        # print("Confusion Matrix:")
+        # print(confusion_matrix(all_labels, all_preds))
 
         print("\nClassification Report:")
         print(classification_report(all_labels, all_preds))
@@ -215,5 +215,5 @@ class CNNClassifier():
 
 
 if __name__ == '__main__':
-    classifier = CNNClassifier(dataset_name="jlbaker361/wikiart", n_obs=5000)
+    classifier = CNNClassifier(dataset_name="jlbaker361/wikiart", n_obs=10000, epochs=20)
     classifier.run()
