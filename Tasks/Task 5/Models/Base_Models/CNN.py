@@ -205,6 +205,7 @@ class CNNClassifier():
 
         print("\nClassification Report:")
         print(classification_report(all_labels, all_preds))
+        
     def run(self):
         self.preprocess()
         self.encode_labels()

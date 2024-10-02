@@ -3,9 +3,7 @@
 # sys.path.insert(0, "../../Models/Base_Models")
 # from GaussianNaiveBayes import GaussianNaiveBayes
 # # weird import structure, open to refactoring and updating the proj structure
-# # from ...Models.Base_Models.GaussianNaiveBayes import GaussianNaiveBayes
-
-from sklearn.naive_bayes import GaussianNB
+from ...Models.Base_Models.GaussianNaiveBayes import GaussianNaiveBayes
 from load_data import load_train_data
 from sklearn.metrics import  accuracy_score
 import sys
