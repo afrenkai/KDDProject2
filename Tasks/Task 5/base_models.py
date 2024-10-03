@@ -20,5 +20,5 @@ if __name__ == '__main__':
     # gnb_clf.run()
 
 
-    # svm_clf = SVMClassifier(train_dataset, val_dataset, test_dataset, unique_styles, max_epoch=2, n_jobs=-1)
-    # svm_clf.run()
+    svm_clf = SVMClassifier(train_dataset, val_dataset, test_dataset, unique_styles, max_epoch=50, n_jobs=-1)
+    svm_clf.run()
