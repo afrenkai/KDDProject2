@@ -1,36 +1,37 @@
+from xgboost import XGBClassifier
 import numpy as np
-from datasets import load_dataset
+from tqdm import tqdm
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import SGDClassifier
-from datasets import Dataset
-from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report, accuracy_score
+from sklearn.preprocessing import LabelEncoder
+from datasets import Dataset
 
-class SVMClassifier:
-    def __init__(self, train_ds, val_ds, test_ds, unique_styles, alpha=0.0001, 
-                 max_epoch=5, tol=1e-3, lr=1e-3, penalty=None, n_jobs=1):
-        self.train_ds = train_ds
+class XGBoostClassifier:
+    def __init__(self, train_ds, val_ds, test_ds, unique_styles, device='cuda'):
+        self.clf = XGBClassifier() # there is a random forrest one as well
+        self.unique_styles = unique_styles
+        # use preprocessed dataset from ../processed_data
+        self.train_ds = train_ds 
         self.val_ds = val_ds
         self.test_ds = test_ds
-        self.alpha = alpha
-        self.max_epoch = max_epoch
-        self.tol = tol
-        self.lr = lr
-        self.penalty = penalty
-        # TODO how to set learning rate here? sklearn only has 3 string options
-        # eg. optimal, adaptive etc
-        self.clf = SGDClassifier(alpha=self.alpha, tol=self.tol, loss='hinge'
-                                 , penalty=self.penalty, n_jobs=n_jobs, random_state=1234) # hinge = SVM
-        self.unique_styles = unique_styles
         self.encoder  = LabelEncoder().fit(unique_styles)
         self.encoded_classes = self.encoder.transform(unique_styles)
-        self.clf_name = 'SVM+SGD'
+        self.clf_name = 'XGBoostClassifier'
 
+    # untested need to check return type and shape
+    def style2label(self, style):
+        return self.encoder.transform(style)
 
+    # untested
+    def label2style(self, label):
+        return self.encoder.inverse_transform(label)
+
+    
     # trains for a single epoch return validation accuracy
     def train(self):
         for batch_num, (x_batch_train, y_batch_train) in enumerate(self.train_ds):
-            self.clf.partial_fit(x_batch_train, y_batch_train, classes=self.encoded_classes)
+            self.clf.train(x_batch_train, y_batch_train, xgb_model=self.clf)
+            dtrain=xgb.DMatrix(x_tr[start:start+batch_size], y_tr[start:start+batch_size])
         # print validation set acc after every epoch
         x_val, y_val = self.get_test_val_x_y(self.val_ds)
         y_pred = self.clf.predict(x_val)
@@ -50,11 +51,11 @@ class SVMClassifier:
         print("Accuracy:")
         print(accuracy_score(y_test, y_pred))
 
+
+
     def run(self):
         print(f"run() called for {self.clf_name}")
         for i in range(self.max_epoch):
             print(f"Training: {i+1}/{self.max_epoch} epochs")
             self.train()
         self.evaluate()
-
-
