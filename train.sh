@@ -13,4 +13,4 @@ module load python/3.10.13
 source ~/KDDProject2/kdd/bin/activate
 pip install -r requirements.txt
 cd Tasks/Task\ 5/
-python preprocessing.py
+python base_models.py
