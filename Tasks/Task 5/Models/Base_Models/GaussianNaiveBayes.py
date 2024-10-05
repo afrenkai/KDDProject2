@@ -7,7 +7,7 @@ from sklearn.preprocessing import LabelEncoder
 from datasets import Dataset
 
 class GaussianNbClassifier:
-    def __init__(self, train_ds, val_ds, test_ds, unique_styles, max_epoch = 1):
+    def __init__(self, train_ds, val_ds, test_ds, unique_styles, partial_fit = False, max_epoch = 1):
         self.clf = GaussianNB()
         self.unique_styles = unique_styles
         # use preprocessed dataset from ../processed_data
@@ -18,6 +18,7 @@ class GaussianNbClassifier:
         self.encoder  = LabelEncoder().fit(unique_styles)
         self.encoded_classes = self.encoder.transform(unique_styles)
         self.clf_name = 'Gaussian NB'
+        self.partial_fit = partial_fit
 
     # untested need to check return type and shape
     def style2label(self, style):
@@ -30,11 +31,14 @@ class GaussianNbClassifier:
     
     # trains for a single epoch return validation accuracy
     def train(self):
-        for batch_num, data in enumerate(self.train_ds):
-            y_batch_train = data['label']
-            x_batch_train = data['img_pixels']
-
-            self.clf.partial_fit(x_batch_train, y_batch_train, classes=self.encoded_classes)
+        if self.partial_fit:
+            for batch_num, data in enumerate(self.train_ds):
+                y_batch_train = data['label']
+                x_batch_train = data['img_pixels']
+                self.clf.partial_fit(x_batch_train, y_batch_train, classes=self.encoded_classes)
+        else:
+            x_train, y_train = self.get_test_val_x_y(self.train_ds)
+            self.clf.fit(x_train, y_train)
         # print validation set acc after every epoch
         x_val, y_val = self.get_test_val_x_y(self.val_ds)
         y_pred = self.clf.predict(x_val)
@@ -58,7 +62,10 @@ class GaussianNbClassifier:
 
     def run(self):
         print(f"run() called for {self.clf_name}")
-        for i in range(self.max_epoch):
-            print(f"Training: {i+1}/{self.max_epoch} epochs")
+        if self.partial_fit:
+            for i in range(self.max_epoch):
+                print(f"Training: {i+1}/{self.max_epoch} epochs")
+                self.train()
+        else:
             self.train()
         self.evaluate()
