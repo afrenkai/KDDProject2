@@ -29,15 +29,29 @@ class SVMClassifier:
 
     # trains for a single epoch return validation accuracy
     def train(self):
-        for batch_num, (x_batch_train, y_batch_train) in enumerate(self.train_ds):
+        for batch_num, data in enumerate(self.train_ds):
+            y_batch_train = data['label']
+            x_batch_train = data['img_pixels']
             self.clf.partial_fit(x_batch_train, y_batch_train, classes=self.encoded_classes)
         # print validation set acc after every epoch
         x_val, y_val = self.get_test_val_x_y(self.val_ds)
         y_pred = self.clf.predict(x_val)
         print("Validation set acc:", accuracy_score(y_val, y_pred))
 
+    def tune_hyperparams():
+        '''
+        options:
+            - grid-search [on validation set]
+            - grid-search+CV [on train set (one epoch)]
+            - Random Search [on validation]
+            - Hyperband
+            - Bayesian 
+        
+        '''
+        pass
+
     def get_test_val_x_y(self, ds: Dataset):
-        return self.test_ds['img_pixels'], self.test_ds['label']
+        return ds['img_pixels'], ds['label']
 
     def evaluate(self):
         print(f"Evaluating {self.clf_name}")

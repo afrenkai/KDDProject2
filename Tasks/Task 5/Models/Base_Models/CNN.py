@@ -192,7 +192,7 @@ class CNNClassifier():
 
         if calculate_log_loss:
             try:
-                logloss = log_loss(all_labels, all_probs, labels=list(range(len(self.unique_styles))))
+                logloss = log_loss(all_labels, all_probs, labels=self.unique_styles)
                 print(f"Log Loss: {logloss:.4f}")
             except ValueError as e:
                 print(f"Error in Log Loss calculation: {e}")
