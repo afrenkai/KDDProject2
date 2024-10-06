@@ -7,13 +7,6 @@ from datasets import DatasetDict
 from sklearn.metrics import  accuracy_score
 
 
-def style2idx(style, style_list: list):
-    return style_list.index(style)
-
-def idx2style(idx, style_list):
-    return style_list[idx]
-
-
 if __name__ == '__main__':
     NUM_SAMPLES = None # whole dataset
     # load data like this for batched
