@@ -22,7 +22,7 @@ class ImgDataset(Dataset):
         return self.X[idx], self.y[idx]
 
 class CNN(nn.Module):
-    def __init__(self, num_classes, img_channels=3):
+    def __init__(self, num_classes, img_channels=3, dropout_rate = 0.0):
         super(CNN, self).__init__()
         self.conv1 = nn.Conv2d(img_channels, 32, kernel_size=3, padding=1)
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
@@ -30,6 +30,7 @@ class CNN(nn.Module):
         self.pool = nn.MaxPool2d(2, 2)
         self.fc1 = nn.Linear(128 * 8 * 8, 128)  # works under the assumption that image is of size 64 x 64
         self.fc2 = nn.Linear(128, num_classes)
+        self.dropout = nn.Dropout(dropout_rate)
 
     def forward(self, x):
         x = self.pool(torch.relu(self.conv1(x)))
@@ -37,6 +38,7 @@ class CNN(nn.Module):
         x = self.pool(torch.relu(self.conv3(x)))
         x = x.view(-1, 128 * 8 * 8)  # flatten here
         x = torch.relu(self.fc1(x))  # 1st fully connected layer
+        x = self.dropout(x) #apply dropout
         x = self.fc2(x) # 2nd fully connected layer
         return x
 
