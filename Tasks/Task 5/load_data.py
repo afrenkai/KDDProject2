@@ -25,7 +25,13 @@ def get_datasets(for_CNN=False, num_samples=None, val_size=0.2, batch_size=32):
         
     # train_dataset = to_tf_dataset(train_ds, shape, output_shape, batch_size=batch_size)
     train_dataset = to_pytorch_dataloader(train_ds, batch_size=batch_size)
-    return train_dataset, val_ds, test_ds, unique_styles
+    test_dataset = to_pytorch_dataloader(test_ds, batch_size=batch_size)
+    test_dataset = test_ds
+    if for_CNN:
+        val_ds.set_format(type='torch', columns=['img_pixels', 'label'])
+        test_dataset = to_pytorch_dataloader(test_ds, batch_size=batch_size)
+
+    return train_dataset, val_ds, test_dataset, unique_styles
 
 # returns save dir
 def get_save_dir(ds_type: str, for_CNN: bool):
@@ -57,6 +63,7 @@ def load_data(for_CNN=False, num_samples=None, val_size=0.2):
         ds_train = ds_train.select(range(num_samples))
     
     ds_train = ds_train.train_test_split(test_size=val_size, shuffle=True)
+
     # train, val, test, unique_styles
     return ds_train['train'], ds_train['test'],  ds_test, unique_styles
 

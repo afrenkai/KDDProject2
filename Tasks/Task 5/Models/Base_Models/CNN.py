@@ -6,19 +6,19 @@ from torch.utils.data import DataLoader, Dataset
 from sklearn.metrics import classification_report
 from datasets import Dataset as HFDataset
 
-class ImgDataset(Dataset):
-    def __init__(self, X, y):
-        self.X = torch.tensor(X, dtype=torch.float32).permute(0, 3, 1, 2)  # reshaping for channels
-        self.y = torch.tensor(y, dtype=torch.long)
+# class ImgDataset(Dataset):
+#     def __init__(self, X, y):
+#         self.X = torch.tensor(X, dtype=torch.float32).reshape(32, 1, 64, 64)  # reshaping for channels
+#         self.y = torch.tensor(y, dtype=torch.long)
 
-    def __len__(self):
-        return len(self.X)
+#     def __len__(self):
+#         return len(self.X)
 
-    def __getitem__(self, idx):
-        return self.X[idx], self.y[idx]
+#     def __getitem__(self, idx):
+#         return self.X[idx], self.y[idx]
 
 class CNN(nn.Module):
-    def __init__(self, num_classes, img_channels=3):
+    def __init__(self, num_classes, img_channels=1):
         super(CNN, self).__init__()
         self.conv1 = nn.Conv2d(img_channels, 32, kernel_size=3, padding=1)
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
@@ -37,7 +37,7 @@ class CNN(nn.Module):
         return x
 
 class CNNClassifier:
-    def __init__(self, train_ds: HFDataset, val_ds: HFDataset, test_ds: HFDataset, unique_styles, batch_size=32, epochs=10, learning_rate=0.001):
+    def __init__(self, train_ds, val_ds: HFDataset, test_ds: HFDataset, unique_styles, batch_size=32, epochs=5, learning_rate=0.001):
         self.train_ds = train_ds
         self.val_ds = val_ds
         self.test_ds = test_ds
@@ -46,31 +46,24 @@ class CNNClassifier:
         self.batch_size = batch_size
         self.learning_rate = learning_rate
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-        x_train, y_train = self.get_x_y(self.train_ds)
-        x_val, y_val = self.get_x_y(self.val_ds)
-        x_test, y_test = self.get_x_y(self.test_ds)
-
-        self.train_loader = DataLoader(ImgDataset(x_train, y_train), batch_size=self.batch_size, shuffle=True)
-        self.val_loader = DataLoader(ImgDataset(x_val, y_val), batch_size=self.batch_size, shuffle=False)
-        self.test_loader = DataLoader(ImgDataset(x_test, y_test), batch_size=self.batch_size, shuffle=False)
-
         self.model = CNN(num_classes=len(unique_styles)).to(self.device)
 
-    def get_x_y(self, ds: HFDataset):
+    def get_x_y(self, ds):
         return ds['img_pixels'], ds['label']
 
     def train(self):
+
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.Adam(self.model.parameters(), lr=self.learning_rate)
 
         for epoch in range(self.epochs):
             running_loss = 0.0
-            self.model.train()
+            self.model.train(True)
 
-            for images, labels in self.train_loader:
+            for _, data in enumerate(self.train_ds):
+                images, labels = self.get_x_y(data)
                 images, labels = images.to(self.device), labels.to(self.device)
-
+                images = images.reshape(-1,1,64,64)
                 optimizer.zero_grad()
                 outputs = self.model(images)
                 loss = criterion(outputs, labels)
@@ -78,8 +71,17 @@ class CNNClassifier:
                 optimizer.step()
 
                 running_loss += loss.item()
+            val_loss = 0.0
+            with torch.no_grad():
+                images, labels = self.get_x_y(self.val_ds)
+                images, labels = images.to(self.device), labels.to(self.device)
+                images = images.reshape(-1,1,64,64)
+                outputs = self.model(images)
+                loss = criterion(outputs, labels)
+                val_loss+= loss.item()
 
-            print(f'Epoch [{epoch + 1}/{self.epochs}], Loss: {running_loss/len(self.train_loader):.4f}')
+            print(f'Epoch [{epoch + 1}/{self.epochs}], Loss: {running_loss/len(self.train_ds):.4f} \
+                  Validation Loss: {val_loss/len(self.val_ds):.4f}')
 
     def evaluate(self):
         self.model.eval()
@@ -89,15 +91,17 @@ class CNNClassifier:
         all_labels = []
 
         with torch.no_grad():
-            for images, labels in self.test_loader:
+            for data in self.test_ds:
+                images, labels = self.get_x_y(data)
                 images, labels = images.to(self.device), labels.to(self.device)
+                images = images.reshape(-1,1,64,64)
                 outputs = self.model(images)
                 _, predicted = torch.max(outputs, 1)
+                _, actual = torch.max(labels, 1)
                 total += labels.size(0)
-                correct += (predicted == labels).sum().item()
-
+                correct += (predicted == actual).sum().item()
                 all_preds.extend(predicted.cpu().numpy())
-                all_labels.extend(labels.cpu().numpy())
+                all_labels.extend(actual.cpu().numpy())
 
         accuracy = 100 * correct / total
         print(f"Test Accuracy: {accuracy:.2f}%")
