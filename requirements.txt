@@ -1,6 +1,7 @@
 datasets
 numpy
 Pillow
+tensorflow[and-cuda]
 scikit-learn
 torch
 torchvision

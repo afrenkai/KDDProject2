@@ -1,69 +1,45 @@
 import numpy as np
-from datasets import load_dataset
-from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, accuracy_score, f1_score
+from sklearn.preprocessing import LabelEncoder
+from datasets import Dataset
 
 class KNNImageClassifier:
-    def __init__(self, dataset_name, img_height=64, img_width=64, channels=3, n_obs=10000, n_neighbors=5):
-        self.dataset_name = dataset_name
-        self.img_height = img_height
-        self.img_width = img_width
-        self.channels = channels
-        self.n_obs = n_obs
+    def __init__(self, train_ds, val_ds, test_ds, unique_styles, n_neighbors=20):
         self.n_neighbors = n_neighbors
-        self.knn = KNeighborsClassifier(n_neighbors=self.n_neighbors)
-        self.unique_styles = []
-        
-        self.dataset = load_dataset(self.dataset_name)
-        self.train_ds = self.dataset['train'].select(range(self.n_obs))
-
-    def preprocess_images(self):
-        def convert_img(x):
-            img_array = np.array(x['image'].resize((self.img_width, self.img_height)))
-            if img_array.shape == (self.img_height, self.img_width, self.channels):
-                x['img_pixels'] = img_array.reshape(-1) / 255
-            else:
-                x['img_pixels'] = None
-            return x
-
-        self.train_ds = self.train_ds.map(convert_img)
-
-        self.train_ds = self.train_ds.filter(lambda x: x['img_pixels'] is not None)
-
-    def encode_labels(self):
-        self.unique_styles = list(set(self.train_ds['style']))
-
-        def encode_labels(x):
-            x['label'] = self.unique_styles.index(x['style'])
-            return x
-
-        self.train_ds = self.train_ds.map(encode_labels, num_proc=4)
-
-    def split_data(self):
-        X = np.array([img for img in self.train_ds['img_pixels']])
-        y = np.array(self.train_ds['label'])
-
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=0.2, random_state=17)
+        self.clf = KNeighborsClassifier(n_neighbors=self.n_neighbors)
+        self.unique_styles = unique_styles
+        self.train_ds = train_ds 
+        self.val_ds = val_ds
+        self.test_ds = test_ds
+        self.encoder  = LabelEncoder().fit(unique_styles)
+        self.encoded_classes = self.encoder.transform(unique_styles)
+        self.clf_name = 'KNN'
 
     def train(self):
-        self.knn.fit(self.X_train, self.y_train)
+        x_train, y_train = self.get_test_val_x_y(self.train_ds)
+        self.clf.fit(x_train, y_train)
+        x_val, y_val = self.get_test_val_x_y(self.val_ds)
+        y_pred = self.clf.predict(x_val)
+        print("Validation set acc:", accuracy_score(y_val, y_pred))
+
+    def get_test_val_x_y(self, ds: Dataset):
+        return ds['img_pixels'], ds['label']
+
 
     def evaluate(self):
-        y_pred = self.knn.predict(self.X_test)
+        print(f"Evaluating {self.clf_name}")
+        x_test, y_test = self.get_test_val_x_y(self.test_ds)
+        y_pred = self.clf.predict(x_test)
 
-        print("Confusion Matrix:")
-        print(confusion_matrix(self.y_test, y_pred))
-
-        print("\nClassification Report:")
-        print(classification_report(self.y_test, y_pred))
+        print("Classification Report:")
+        print(classification_report(y_test, y_pred, target_names=self.unique_styles))
+        
+        print("Accuracy:")
+        print(accuracy_score(y_test, y_pred))
 
     def run(self):
-        self.preprocess_images()
-        self.encode_labels()
-        self.split_data()
+        print(f"run() called for {self.clf_name}")
         self.train()
         self.evaluate()
-if __name__ == '__main__':
-    classifier = KNNImageClassifier(dataset_name="jlbaker361/wikiart", n_obs=5000, n_neighbors=5) 
-    classifier.run()
+

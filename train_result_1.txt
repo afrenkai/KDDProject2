@@ -1,0 +1,317 @@
+Loading cuda/12.5.1/6wffrw2
+  Loading requirement: gcc-runtime/13.2.0/yimvxxm libiconv/1.17/pmxhi4x
+    xz/5.4.6/uxouxrg zlib-ng/2.1.5/uctcqfl libxml2/2.10.3/vdqe2g3
+Loading python/3.10.13/tkc7o4o
+  Loading requirement: bzip2/1.0.8/itttwfv libmd/1.0.4/yaohqo4
+    libbsd/0.11.7/7647dt7 expat/2.6.0/f7jp3b5 ncurses/6.4/zqsx2w2
+    readline/8.2/hmsgdsx gdbm/1.23/gtrssid pigz/2.8/pmmdaqf zstd/1.5.5/juuobg2
+    tar/1.34/5prin2y gettext/0.22.4/iy5z4el libffi/3.4.4/vqf2avv
+    libxcrypt/4.4.35/zvatbxx openssl/3.2.1/zbl47cr sqlite/3.43.2/o22u32h
+    util-linux-uuid/2.38.1/mse45hb
+Requirement already satisfied: datasets in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (3.0.1)
+Requirement already satisfied: numpy in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.26.4)
+Requirement already satisfied: Pillow in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 3)) (10.4.0)
+Requirement already satisfied: tensorflow[and-cuda] in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 4)) (2.17.0)
+Requirement already satisfied: scikit-learn in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (1.5.2)
+Requirement already satisfied: torch in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (2.0.1)
+Requirement already satisfied: torchvision in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (0.15.2)
+Requirement already satisfied: pandas in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (2.2.3)
+Requirement already satisfied: matplotlib in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (3.9.2)
+Requirement already satisfied: tqdm in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (4.66.5)
+Collecting xgboost
+  Downloading xgboost-2.1.1-py3-none-manylinux_2_28_x86_64.whl (153.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 153.9/153.9 MB 24.5 MB/s eta 0:00:00
+Requirement already satisfied: pyyaml>=5.1 in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (6.0.2)
+Requirement already satisfied: multiprocess in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (0.70.16)
+Requirement already satisfied: huggingface-hub>=0.22.0 in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (0.25.1)
+Requirement already satisfied: aiohttp in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (3.10.9)
+Requirement already satisfied: fsspec[http]<=2024.6.1,>=2023.1.0 in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (2024.6.1)
+Requirement already satisfied: filelock in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (3.16.1)
+Requirement already satisfied: dill<0.3.9,>=0.3.0 in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (0.3.8)
+Requirement already satisfied: packaging in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (24.1)
+Requirement already satisfied: xxhash in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (3.5.0)
+Requirement already satisfied: requests>=2.32.2 in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (2.32.3)
+Requirement already satisfied: pyarrow>=15.0.0 in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (17.0.0)
+Requirement already satisfied: google-pasta>=0.1.1 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (0.2.0)
+Requirement already satisfied: wrapt>=1.11.0 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (1.16.0)
+Requirement already satisfied: keras>=3.2.0 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (3.6.0)
+Requirement already satisfied: gast!=0.5.0,!=0.5.1,!=0.5.2,>=0.2.1 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (0.6.0)
+Requirement already satisfied: setuptools in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (65.5.0)
+Requirement already satisfied: opt-einsum>=2.3.2 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (3.4.0)
+Requirement already satisfied: six>=1.12.0 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (1.16.0)
+Requirement already satisfied: typing-extensions>=3.6.6 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (4.12.2)
+Requirement already satisfied: ml-dtypes<0.5.0,>=0.3.1 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (0.4.1)
+Requirement already satisfied: flatbuffers>=24.3.25 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (24.3.25)
+Requirement already satisfied: h5py>=3.10.0 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (3.12.1)
+Requirement already satisfied: astunparse>=1.6.0 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (1.6.3)
+Requirement already satisfied: protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.20.3 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (4.25.5)
+Requirement already satisfied: termcolor>=1.1.0 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (2.4.0)
+Requirement already satisfied: grpcio<2.0,>=1.24.3 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (1.66.2)
+Requirement already satisfied: tensorboard<2.18,>=2.17 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (2.17.1)
+Requirement already satisfied: tensorflow-io-gcs-filesystem>=0.23.1 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (0.37.1)
+Requirement already satisfied: absl-py>=1.0.0 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (2.1.0)
+Requirement already satisfied: libclang>=13.0.0 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (18.1.1)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.3.107 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (12.3.107)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.3.101 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (12.3.101)
+Requirement already satisfied: nvidia-curand-cu12==10.3.4.107 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (10.3.4.107)
+Requirement already satisfied: nvidia-nccl-cu12==2.19.3 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (2.19.3)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.3.101 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (12.3.101)
+Requirement already satisfied: nvidia-cusolver-cu12==11.5.4.101 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (11.5.4.101)
+Requirement already satisfied: nvidia-cudnn-cu12==8.9.7.29 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (8.9.7.29)
+Requirement already satisfied: nvidia-cublas-cu12==12.3.4.1 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (12.3.4.1)
+Requirement already satisfied: nvidia-cufft-cu12==11.0.12.1 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (11.0.12.1)
+Requirement already satisfied: nvidia-cusparse-cu12==12.2.0.103 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (12.2.0.103)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.3.101 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (12.3.101)
+Requirement already satisfied: nvidia-cuda-nvcc-cu12==12.3.107 in ./kdd/lib/python3.10/site-packages (from tensorflow[and-cuda]->-r requirements.txt (line 4)) (12.3.107)
+Requirement already satisfied: threadpoolctl>=3.1.0 in ./kdd/lib/python3.10/site-packages (from scikit-learn->-r requirements.txt (line 5)) (3.5.0)
+Requirement already satisfied: joblib>=1.2.0 in ./kdd/lib/python3.10/site-packages (from scikit-learn->-r requirements.txt (line 5)) (1.4.2)
+Requirement already satisfied: scipy>=1.6.0 in ./kdd/lib/python3.10/site-packages (from scikit-learn->-r requirements.txt (line 5)) (1.14.1)
+Requirement already satisfied: networkx in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (3.3)
+Requirement already satisfied: nvidia-nccl-cu11==2.14.3 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (2.14.3)
+Requirement already satisfied: triton==2.0.0 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (2.0.0)
+Requirement already satisfied: nvidia-cuda-cupti-cu11==11.7.101 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (11.7.101)
+Requirement already satisfied: nvidia-nvtx-cu11==11.7.91 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (11.7.91)
+Requirement already satisfied: nvidia-cusolver-cu11==11.4.0.1 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (11.4.0.1)
+Requirement already satisfied: nvidia-cublas-cu11==11.10.3.66 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (11.10.3.66)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu11==11.7.99 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (11.7.99)
+Requirement already satisfied: sympy in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (1.13.3)
+Requirement already satisfied: nvidia-cufft-cu11==10.9.0.58 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (10.9.0.58)
+Requirement already satisfied: nvidia-curand-cu11==10.2.10.91 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (10.2.10.91)
+Requirement already satisfied: jinja2 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: nvidia-cusparse-cu11==11.7.4.91 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (11.7.4.91)
+Requirement already satisfied: nvidia-cuda-runtime-cu11==11.7.99 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (11.7.99)
+Requirement already satisfied: nvidia-cudnn-cu11==8.5.0.96 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (8.5.0.96)
+Requirement already satisfied: wheel in ./kdd/lib/python3.10/site-packages (from nvidia-cublas-cu11==11.10.3.66->torch->-r requirements.txt (line 6)) (0.44.0)
+Requirement already satisfied: cmake in ./kdd/lib/python3.10/site-packages (from triton==2.0.0->torch->-r requirements.txt (line 6)) (3.30.4)
+Requirement already satisfied: lit in ./kdd/lib/python3.10/site-packages (from triton==2.0.0->torch->-r requirements.txt (line 6)) (18.1.8)
+Requirement already satisfied: python-dateutil>=2.8.2 in ./kdd/lib/python3.10/site-packages (from pandas->-r requirements.txt (line 8)) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in ./kdd/lib/python3.10/site-packages (from pandas->-r requirements.txt (line 8)) (2024.2)
+Requirement already satisfied: tzdata>=2022.7 in ./kdd/lib/python3.10/site-packages (from pandas->-r requirements.txt (line 8)) (2024.2)
+Requirement already satisfied: fonttools>=4.22.0 in ./kdd/lib/python3.10/site-packages (from matplotlib->-r requirements.txt (line 9)) (4.54.1)
+Requirement already satisfied: contourpy>=1.0.1 in ./kdd/lib/python3.10/site-packages (from matplotlib->-r requirements.txt (line 9)) (1.3.0)
+Requirement already satisfied: kiwisolver>=1.3.1 in ./kdd/lib/python3.10/site-packages (from matplotlib->-r requirements.txt (line 9)) (1.4.7)
+Requirement already satisfied: cycler>=0.10 in ./kdd/lib/python3.10/site-packages (from matplotlib->-r requirements.txt (line 9)) (0.12.1)
+Requirement already satisfied: pyparsing>=2.3.1 in ./kdd/lib/python3.10/site-packages (from matplotlib->-r requirements.txt (line 9)) (3.1.4)
+Requirement already satisfied: attrs>=17.3.0 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (24.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (1.4.1)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (4.0.3)
+Requirement already satisfied: aiosignal>=1.1.2 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (1.3.1)
+Requirement already satisfied: yarl<2.0,>=1.12.0 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (1.13.1)
+Requirement already satisfied: aiohappyeyeballs>=2.3.0 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (2.4.3)
+Requirement already satisfied: multidict<7.0,>=4.5 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (6.1.0)
+Requirement already satisfied: namex in ./kdd/lib/python3.10/site-packages (from keras>=3.2.0->tensorflow[and-cuda]->-r requirements.txt (line 4)) (0.0.8)
+Requirement already satisfied: optree in ./kdd/lib/python3.10/site-packages (from keras>=3.2.0->tensorflow[and-cuda]->-r requirements.txt (line 4)) (0.13.0)
+Requirement already satisfied: rich in ./kdd/lib/python3.10/site-packages (from keras>=3.2.0->tensorflow[and-cuda]->-r requirements.txt (line 4)) (13.9.2)
+Requirement already satisfied: certifi>=2017.4.17 in ./kdd/lib/python3.10/site-packages (from requests>=2.32.2->datasets->-r requirements.txt (line 1)) (2024.8.30)
+Requirement already satisfied: urllib3<3,>=1.21.1 in ./kdd/lib/python3.10/site-packages (from requests>=2.32.2->datasets->-r requirements.txt (line 1)) (2.2.3)
+Requirement already satisfied: charset-normalizer<4,>=2 in ./kdd/lib/python3.10/site-packages (from requests>=2.32.2->datasets->-r requirements.txt (line 1)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in ./kdd/lib/python3.10/site-packages (from requests>=2.32.2->datasets->-r requirements.txt (line 1)) (3.10)
+Requirement already satisfied: markdown>=2.6.8 in ./kdd/lib/python3.10/site-packages (from tensorboard<2.18,>=2.17->tensorflow[and-cuda]->-r requirements.txt (line 4)) (3.7)
+Requirement already satisfied: tensorboard-data-server<0.8.0,>=0.7.0 in ./kdd/lib/python3.10/site-packages (from tensorboard<2.18,>=2.17->tensorflow[and-cuda]->-r requirements.txt (line 4)) (0.7.2)
+Requirement already satisfied: werkzeug>=1.0.1 in ./kdd/lib/python3.10/site-packages (from tensorboard<2.18,>=2.17->tensorflow[and-cuda]->-r requirements.txt (line 4)) (3.0.4)
+Requirement already satisfied: MarkupSafe>=2.0 in ./kdd/lib/python3.10/site-packages (from jinja2->torch->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in ./kdd/lib/python3.10/site-packages (from sympy->torch->-r requirements.txt (line 6)) (1.3.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in ./kdd/lib/python3.10/site-packages (from rich->keras>=3.2.0->tensorflow[and-cuda]->-r requirements.txt (line 4)) (2.18.0)
+Requirement already satisfied: markdown-it-py>=2.2.0 in ./kdd/lib/python3.10/site-packages (from rich->keras>=3.2.0->tensorflow[and-cuda]->-r requirements.txt (line 4)) (3.0.0)
+Requirement already satisfied: mdurl~=0.1 in ./kdd/lib/python3.10/site-packages (from markdown-it-py>=2.2.0->rich->keras>=3.2.0->tensorflow[and-cuda]->-r requirements.txt (line 4)) (0.1.2)
+Installing collected packages: xgboost
+Successfully installed xgboost-2.1.1
+
+[notice] A new release of pip is available: 23.0.1 -> 24.2
+[notice] To update, run: pip install --upgrade pip
+2024-10-05 20:20:15.210856: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-10-05 20:20:15.709374: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-10-05 20:20:15.875101: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-10-05 20:20:15.936892: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-10-05 20:20:16.252770: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX512_FP16 AVX_VNNI AMX_TILE AMX_INT8 AMX_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-10-05 20:20:19.074564: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/home/sppradhan/KDDProject2/kdd/lib/python3.10/site-packages/xgboost/core.py:158: UserWarning: [20:27:28] WARNING: /workspace/src/common/error_msg.cc:58: Falling back to prediction using DMatrix due to mismatched devices. This might lead to higher memory usage and slower performance. XGBoost is running on: cuda:0, while the input data is on: cpu.
+Potential solutions:
+- Use a data structure that matches the device ordinal in the booster.
+- Set the device for booster before call to inplace_predict.
+
+This warning will only be shown once.
+
+  warnings.warn(smsg, UserWarning)
+/home/sppradhan/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/sppradhan/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/sppradhan/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/sppradhan/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/sppradhan/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/sppradhan/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+run() called for Gaussian NB
+Validation set acc: 0.06507059545733579
+Evaluating Gaussian NB
+Classification Report:
+                            precision    recall  f1-score   support
+
+    abstract-expressionism       0.03      0.00      0.01       264
+           action-painting       0.00      0.00      0.00         6
+         analytical-cubism       0.01      0.60      0.01         5
+        art-nouveau-modern       0.14      0.03      0.05       466
+                   baroque       0.10      0.02      0.04       442
+      color-field-painting       0.07      0.02      0.04       162
+      contemporary-realism       0.14      0.02      0.03        59
+                    cubism       0.00      0.00      0.00       209
+         early-renaissance       0.05      0.08      0.06       107
+             expressionism       0.08      0.00      0.00       682
+                   fauvism       0.03      0.11      0.04        93
+          high-renaissance       0.02      0.01      0.01       154
+             impressionism       0.27      0.10      0.15      1237
+mannerism-late-renaissance       0.04      0.60      0.08       114
+                minimalism       0.06      0.41      0.11       136
+     na-ve-art-primitivism       0.00      0.00      0.00       257
+               new-realism       0.00      0.00      0.00        34
+      northern-renaissance       0.06      0.00      0.01       245
+               pointillism       0.01      0.31      0.03        51
+                   pop-art       0.05      0.01      0.01       153
+        post-impressionism       0.17      0.03      0.04       620
+                   realism       0.32      0.06      0.10      1088
+                    rococo       0.07      0.28      0.11       211
+               romanticism       0.29      0.04      0.07       726
+                 symbolism       0.11      0.02      0.03       491
+          synthetic-cubism       0.00      0.00      0.00        19
+                   ukiyo-e       0.03      0.26      0.05       114
+
+                  accuracy                           0.06      8145
+                 macro avg       0.08      0.11      0.04      8145
+              weighted avg       0.16      0.06      0.06      8145
+
+Accuracy:
+0.06457949662369551
+run() called for SVM+SGD
+Training: 1/5 epochs
+Validation set acc: 0.1583111656776482
+Training: 2/5 epochs
+Validation set acc: 0.09153536593683924
+Training: 3/5 epochs
+Validation set acc: 0.10647295546006412
+Training: 4/5 epochs
+Validation set acc: 0.09746947684332583
+Training: 5/5 epochs
+Validation set acc: 0.10585908191801378
+Evaluating SVM+SGD
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.07      0.00      0.01       264
+           1       0.00      0.00      0.00         6
+           2       0.00      0.00      0.00         5
+           3       0.11      0.21      0.14       466
+           4       0.17      0.07      0.10       442
+           5       0.03      0.01      0.02       162
+           6       0.00      0.00      0.00        59
+           7       0.06      0.01      0.02       209
+           8       0.02      0.06      0.03       107
+           9       0.15      0.03      0.05       682
+          10       0.00      0.00      0.00        93
+          11       0.03      0.09      0.04       154
+          12       0.18      0.09      0.12      1237
+          13       0.04      0.10      0.06       114
+          14       0.13      0.01      0.03       136
+          15       0.03      0.00      0.01       257
+          16       0.00      0.00      0.00        34
+          17       0.06      0.02      0.03       245
+          18       0.00      0.00      0.00        51
+          19       0.07      0.01      0.01       153
+          20       0.10      0.20      0.13       620
+          21       0.18      0.19      0.18      1088
+          22       0.12      0.06      0.08       211
+          23       0.19      0.11      0.14       726
+          24       0.08      0.29      0.12       491
+          25       0.00      0.00      0.00        19
+          26       0.04      0.01      0.01       114
+
+    accuracy                           0.11      8145
+   macro avg       0.07      0.06      0.05      8145
+weighted avg       0.12      0.11      0.10      8145
+
+Accuracy:
+0.10730509515039902
+run() called for XGBoostClassifier
+Validation set acc: 0.25612168337766866
+Evaluating XGBoostClassifier
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.05      0.02      0.03       264
+           1       0.00      0.00      0.00         6
+           2       0.00      0.00      0.00         5
+           3       0.18      0.09      0.12       466
+           4       0.25      0.26      0.26       442
+           5       0.10      0.03      0.05       162
+           6       0.00      0.00      0.00        59
+           7       0.06      0.02      0.03       209
+           8       0.17      0.03      0.05       107
+           9       0.14      0.08      0.11       682
+          10       0.00      0.00      0.00        93
+          11       0.09      0.01      0.02       154
+          12       0.23      0.69      0.34      1237
+          13       0.02      0.01      0.01       114
+          14       0.19      0.14      0.16       136
+          15       0.12      0.02      0.04       257
+          16       0.33      0.03      0.05        34
+          17       0.10      0.03      0.04       245
+          18       0.00      0.00      0.00        51
+          19       0.07      0.03      0.04       153
+          20       0.09      0.03      0.05       620
+          21       0.21      0.34      0.26      1088
+          22       0.16      0.10      0.12       211
+          23       0.27      0.17      0.21       726
+          24       0.08      0.01      0.01       491
+          25       0.00      0.00      0.00        19
+          26       0.10      0.06      0.08       114
+
+    accuracy                           0.21      8145
+   macro avg       0.11      0.08      0.08      8145
+weighted avg       0.16      0.21      0.15      8145
+
+Accuracy:
+0.2052793124616329
+run() called for KNN
+Validation set acc: 0.1980765295682423
+Evaluating KNN
+Classification Report:
+                            precision    recall  f1-score   support
+
+    abstract-expressionism       0.05      0.06      0.06       264
+           action-painting       0.00      0.00      0.00         6
+         analytical-cubism       0.00      0.00      0.00         5
+        art-nouveau-modern       0.15      0.07      0.10       466
+                   baroque       0.24      0.10      0.14       442
+      color-field-painting       0.03      0.43      0.06       162
+      contemporary-realism       0.04      0.03      0.03        59
+                    cubism       0.00      0.00      0.00       209
+         early-renaissance       0.11      0.01      0.02       107
+             expressionism       0.14      0.03      0.05       682
+                   fauvism       0.00      0.00      0.00        93
+          high-renaissance       0.00      0.00      0.00       154
+             impressionism       0.26      0.45      0.33      1237
+mannerism-late-renaissance       0.00      0.00      0.00       114
+                minimalism       0.05      0.41      0.09       136
+     na-ve-art-primitivism       0.17      0.01      0.01       257
+               new-realism       0.00      0.00      0.00        34
+      northern-renaissance       0.33      0.01      0.02       245
+               pointillism       0.00      0.00      0.00        51
+                   pop-art       0.25      0.01      0.01       153
+        post-impressionism       0.12      0.02      0.03       620
+                   realism       0.27      0.22      0.24      1088
+                    rococo       0.22      0.11      0.15       211
+               romanticism       0.27      0.20      0.23       726
+                 symbolism       0.09      0.04      0.06       491
+          synthetic-cubism       0.00      0.00      0.00        19
+                   ukiyo-e       0.50      0.01      0.02       114
+
+                  accuracy                           0.15      8145
+                 macro avg       0.12      0.08      0.06      8145
+              weighted avg       0.19      0.15      0.14      8145
+
+Accuracy:
+0.15371393492940455
