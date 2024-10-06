@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, Dataset
-from sklearn.metrics import classification_report
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from datasets import Dataset as HFDataset
 
 # class ImgDataset(Dataset):
@@ -83,31 +83,37 @@ class CNNClassifier:
             print(f'Epoch [{epoch + 1}/{self.epochs}], Loss: {running_loss/len(self.train_ds):.4f} \
                   Validation Loss: {val_loss/len(self.val_ds):.4f}')
 
-    def evaluate(self):
-        self.model.eval()
-        correct = 0
-        total = 0
-        all_preds = []
-        all_labels = []
+        def evaluate(self):
+            self.model.eval()
+            correct = 0
+            total = 0
+            all_preds = []
+            all_labels = []
+            running_val_loss = 0.0
 
-        with torch.no_grad():
-            for data in self.test_ds:
-                images, labels = self.get_x_y(data)
-                images, labels = images.to(self.device), labels.to(self.device)
-                images = images.reshape(-1,1,64,64)
-                outputs = self.model(images)
-                _, predicted = torch.max(outputs, 1)
-                _, actual = torch.max(labels, 1)
-                total += labels.size(0)
-                correct += (predicted == actual).sum().item()
-                all_preds.extend(predicted.cpu().numpy())
-                all_labels.extend(actual.cpu().numpy())
+            criterion = nn.CrossEntropyLoss()
 
-        accuracy = 100 * correct / total
-        print(f"Test Accuracy: {accuracy:.2f}%")
+            with torch.no_grad():
+                for data in self.test_ds:
+                    images, labels = self.get_x_y(data)
+                    images, labels = images.to(self.device), labels.to(self.device)
+                    images = images.reshape(-1,1,64,64)
+                    outputs = self.model(images)
+                    
+                    loss = criterion(outputs, labels)
+                    running_val_loss += loss.item()
 
-        print("\nClassification Report:")
-        print(classification_report(all_labels, all_preds, target_names=self.unique_styles))
+                    _, predicted = torch.max(outputs, 1)
+                    all_preds.extend(predicted.cpu().numpy())
+                    all_labels.extend(labels.cpu().numpy())
+
+            accuracy = accuracy_score(all_labels, all_preds)
+            precision = precision_score(all_labels, all_preds, average='weighted')
+            recall = recall_score(all_labels, all_preds, average='weighted')
+            f1 = f1_score(all_labels, all_preds, average='weighted')
+            val_loss = running_val_loss / len(self.test_ds)
+
+            return accuracy, precision, recall, f1, val_loss
 
     def run(self):
         self.train()
