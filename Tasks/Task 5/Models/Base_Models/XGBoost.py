@@ -61,6 +61,7 @@ class XGBoostClassifier:
              'reg_alpha': [0, 0.01],
              }
         ]
+
         print("Grid Search on Validation set")
         best_score = -1
         best_grid = None

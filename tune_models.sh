@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH -N 1
 #SBATCH -n 10
-#SBATCH --mem=100g
-#SBATCH -J "CNN tune"
+#SBATCH --mem=120g
+#SBATCH -J "Model tune"
 #SBATCH -p short
-#SBATCH -t 16:00:00
+#SBATCH -t 05:00:00
 #SBATCH --gres=gpu:1
 #SBATCH --output=/home/sppradhan/tune_models_%j.txt
 module load cuda
