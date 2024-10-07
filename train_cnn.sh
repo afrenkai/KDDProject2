@@ -6,10 +6,9 @@
 #SBATCH -p short
 #SBATCH -t 12:00:00
 #SBATCH --gres=gpu:1
-#SBATCH --output=/home/sppradhan/KDDProject2/train_cnn_%j.txt
-module load cuda11.7
+#SBATCH --output=/home/sppradhan/train_cnn_%j.txt
+module load cuda
 module load python/3.10.13
 source ~/KDDProject2/kdd/bin/activate
-pip install -r requirements.txt
 cd Tasks/Task\ 5/
 python base_model_cnn.py
