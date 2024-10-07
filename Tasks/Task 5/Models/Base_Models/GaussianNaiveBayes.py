@@ -58,6 +58,8 @@ class GaussianNbClassifier:
         print("Accuracy:")
         print(accuracy_score(y_test, y_pred))
 
+    def tune(self):
+        print(f"No hyperparams to tune for {self.clf_name}")
 
 
     def run(self):
