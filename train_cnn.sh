@@ -3,7 +3,7 @@
 #SBATCH -n 8
 #SBATCH --mem=100g
 #SBATCH -J "CNN test"
-#SBATCH -p short
+#SBATCH -p academic
 #SBATCH -t 12:00:00
 #SBATCH --gres=gpu:1
 #SBATCH --output=/home/sppradhan/train_cnn_%j.txt
