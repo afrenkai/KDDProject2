@@ -154,5 +154,5 @@ if __name__ == '__main__':
     print(best_hyperparams_standard)
 
     best_hyperparams_kfold = hyperparameter_tuning_with_k_fold(hyperparams, k=3)
-    print('Grid Search + CV (k=5)')
+    print('Grid Search + CV (k=3)')
     print(best_hyperparams_kfold)
