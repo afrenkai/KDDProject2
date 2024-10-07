@@ -29,7 +29,7 @@ class CNN(nn.Module):
 
 
 class CNNClassifier:
-    def __init__(self, train_ds, val_ds: HFDataset, test_ds: HFDataset, unique_styles, batch_size=32, epochs=5, learning_rate=0.001, dropout_rate=0.0):
+    def __init__(self, train_ds, val_ds, test_ds, unique_styles, batch_size=32, epochs=5, learning_rate=0.001, dropout_rate=0.0):
         self.train_ds = train_ds
         self.val_ds = val_ds
         self.test_ds = test_ds
@@ -74,7 +74,7 @@ class CNNClassifier:
 
             print(f'Epoch [{epoch + 1}/{self.epochs}], Loss: {running_loss/len(self.train_ds):.4f}, Validation Loss: {val_loss/len(self.val_ds):.4f}')
 
-    def evaluate(self):
+    def evaluate(self,print_res=True):
         self.model.eval()
         all_preds = []
         all_labels = []
@@ -88,7 +88,6 @@ class CNNClassifier:
                 images, labels = images.to(self.device), labels.to(self.device)
                 images = images.reshape(-1, 1, 64, 64)
                 outputs = self.model(images)
-                
                 loss = criterion(outputs, labels)
                 running_val_loss += loss.item()
                 _, actual = torch.max(labels, 1)
@@ -102,8 +101,8 @@ class CNNClassifier:
         recall = recall_score(all_labels, all_preds, average='weighted')
         f1 = f1_score(all_labels, all_preds, average='weighted')
         val_loss = running_val_loss / len(self.test_ds)
-
-        print(f"Test Loss: {val_loss:.4f}, Accuracy: {accuracy:.4f}, Precision: {precision:.4f}, Recall: {recall:.4f}, F1-Score: {f1:.4f}")
+        if print_res:
+            print(f"Test Loss: {val_loss:.4f}, Accuracy: {accuracy:.4f}, Precision: {precision:.4f}, Recall: {recall:.4f}, F1-Score: {f1:.4f}")
         return accuracy, precision, recall, f1, val_loss
 
     def run(self):

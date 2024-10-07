@@ -1,13 +1,15 @@
 from Models.Base_Models.CNN import CNNClassifier
-from load_data import get_datasets
-from datasets import DatasetDict
+from load_data import get_datasets, to_pytorch_dataloader
+from datasets import Dataset
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.model_selection import KFold
 import itertools
 import numpy as np
 
+NUM_SAMPLES = None
+
 def hyperparameter_tuning(hyperparams):
-    NUM_SAMPLES = None
+    print('Starting Grid Search')
     best_accuracy = 0.0
     best_params = None
 
@@ -32,9 +34,9 @@ def hyperparameter_tuning(hyperparams):
             dropout_rate=params['dropout_rate']
         )
         
-        cnn_clf.run()
+        cnn_clf.train()
 
-        accuracy, precision, recall, f1, val_loss = cnn_clf.evaluate()
+        accuracy, precision, recall, f1, val_loss = cnn_clf.evaluate(False)
         print(f"Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}, F1: {f1}, Validation Loss: {val_loss}")
 
         if accuracy > best_accuracy:
@@ -47,14 +49,14 @@ def hyperparameter_tuning(hyperparams):
     return best_params
 
 def k_fold_cross_validation(params, k=5):
-    NUM_SAMPLES = None
 
     train_dataset, _, test_dataset, unique_styles = get_datasets(
-        for_CNN=False, 
+        for_CNN=True, 
         val_size=0.0,  
-        num_samples=NUM_SAMPLES
+        num_samples=NUM_SAMPLES,
+        batch_size = None
     )
-
+    test_dataset = to_pytorch_dataloader(test_dataset, batch_size=params['batch_size'])
     X = np.array(train_dataset['img_pixels'])
     y = np.array(train_dataset['label'])
 
@@ -73,19 +75,14 @@ def k_fold_cross_validation(params, k=5):
 
         train_dataset_fold = {'img_pixels': X_train, 'label': y_train}
         val_dataset_fold = {'img_pixels': X_val, 'label': y_val}
-
-        train_dataset_batched, val_dataset_batched, _, _ = get_datasets(
-            for_CNN=True,
-            val_size=0.0,
-            batch_size=params['batch_size'],
-            num_samples=NUM_SAMPLES,
-            train_data=train_dataset_fold,
-            val_data=val_dataset_fold
-        )
-
+        train_dataset_hf = Dataset.from_dict(train_dataset_fold)
+        val_dataset_hf = Dataset.from_dict(val_dataset_fold)
+        val_dataset_hf.set_format(type='torch', columns=['img_pixels', 'label'])
+        train_dataset_batched = to_pytorch_dataloader(train_dataset_hf, batch_size=params['batch_size'])
+        
         cnn_clf = CNNClassifier(
             train_dataset_batched, 
-            val_dataset_batched, 
+            val_dataset_hf, 
             test_dataset, 
             unique_styles, 
             batch_size=params['batch_size'], 
@@ -94,9 +91,9 @@ def k_fold_cross_validation(params, k=5):
             dropout_rate=params['dropout_rate']
         )
 
-        cnn_clf.run()
+        cnn_clf.train()
 
-        accuracy, precision, recall, f1, val_loss = cnn_clf.evaluate()
+        accuracy, precision, recall, f1, val_loss = cnn_clf.evaluate(False)
         print(f"Fold {fold + 1} - Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}, F1 Score: {f1}, Validation Loss: {val_loss}")
 
         accuracies.append(accuracy)
@@ -121,6 +118,7 @@ def k_fold_cross_validation(params, k=5):
     return avg_accuracy, avg_precision, avg_recall, avg_f1_score, avg_val_loss
 
 def hyperparameter_tuning_with_k_fold(hyperparams, k=5):
+    print(f'Starting Grid Search + CV (k={k})')
     best_accuracy = 0.0
     best_params = None
 
@@ -140,10 +138,10 @@ def hyperparameter_tuning_with_k_fold(hyperparams, k=5):
 
 if __name__ == '__main__':
     param_grid = {
-        'batch_size': [32, 64],
-        'epochs': [5, 10],
+        'batch_size': [16, 32, 64],
+        'epochs': [5, 10, 20, 30],
         'learning_rate': [0.001, 0.0001],
-        'dropout_rate': [0.0, 0.2]
+        'dropout_rate': [0.0, 0.1,0.2]
     }
 
     hyperparams = [
@@ -152,5 +150,9 @@ if __name__ == '__main__':
     ]
 
     best_hyperparams_standard = hyperparameter_tuning(hyperparams)
+    print('Grid Search Best params')
+    print(best_hyperparams_standard)
 
     best_hyperparams_kfold = hyperparameter_tuning_with_k_fold(hyperparams, k=5)
+    print('Grid Search + CV (k=5)')
+    print(best_hyperparams_kfold)

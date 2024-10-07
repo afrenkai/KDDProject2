@@ -13,22 +13,18 @@ def get_datasets(for_CNN=False, num_samples=None, val_size=0.2, batch_size=32):
     returns train_dataset [Type: tf.Dataset (batched) if batch_size != None], val_dataset, test_dataset , unique_styles
     '''
     train_ds, val_ds, test_ds, unique_styles = load_data(for_CNN=for_CNN, num_samples=num_samples, val_size=val_size)
-    if for_CNN:
-        shape = (HEIGHT, WIDTH)
-        output_shape = (len(unique_styles))
-    else:
-        shape = (HEIGHT*WIDTH)
-        output_shape = ()
+
     if batch_size == None:
         # return test dataset as is
         return train_ds, val_ds, test_ds, unique_styles
         
     # train_dataset = to_tf_dataset(train_ds, shape, output_shape, batch_size=batch_size)
     train_dataset = to_pytorch_dataloader(train_ds, batch_size=batch_size)
-    test_dataset = to_pytorch_dataloader(test_ds, batch_size=batch_size)
     test_dataset = test_ds
+
     if for_CNN:
-        val_ds.set_format(type='torch', columns=['img_pixels', 'label'])
+        if val_ds != None:
+            val_ds.set_format(type='torch', columns=['img_pixels', 'label'])
         test_dataset = to_pytorch_dataloader(test_ds, batch_size=batch_size)
 
     return train_dataset, val_ds, test_dataset, unique_styles
@@ -62,10 +58,12 @@ def load_data(for_CNN=False, num_samples=None, val_size=0.2):
     if num_samples is not None:
         ds_train = ds_train.select(range(num_samples))
     
-    ds_train = ds_train.train_test_split(test_size=val_size, shuffle=True)
-
-    # train, val, test, unique_styles
-    return ds_train['train'], ds_train['test'],  ds_test, unique_styles
+    if val_size <= 0.0:
+        return ds_train, None,  ds_test, unique_styles
+    else:
+        ds_train = ds_train.train_test_split(test_size=val_size, shuffle=True)
+        # train, val, test, unique_styles
+        return ds_train['train'], ds_train['test'],  ds_test, unique_styles
 
 
 # this should work differently for cnn vs other models
