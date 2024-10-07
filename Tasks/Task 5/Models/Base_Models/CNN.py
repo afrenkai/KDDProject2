@@ -91,10 +91,11 @@ class CNNClassifier:
                 
                 loss = criterion(outputs, labels)
                 running_val_loss += loss.item()
+                _, actual = torch.max(labels, 1)
 
                 _, predicted = torch.max(outputs, 1)
                 all_preds.extend(predicted.cpu().numpy())
-                all_labels.extend(labels.cpu().numpy())
+                all_labels.extend(actual.cpu().numpy())
 
         accuracy = accuracy_score(all_labels, all_preds)
         precision = precision_score(all_labels, all_preds, average='weighted')
