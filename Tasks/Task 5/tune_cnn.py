@@ -139,9 +139,9 @@ def hyperparameter_tuning_with_k_fold(hyperparams, k=5):
 if __name__ == '__main__':
     param_grid = {
         'batch_size': [16, 32, 64],
-        'epochs': [5, 10, 20, 30],
+        'epochs': [1, 3, 5, 10],
         'learning_rate': [0.001, 0.0001],
-        'dropout_rate': [0.0, 0.1,0.2]
+        'dropout_rate': [0.0, 0.1, 0.2]
     }
 
     hyperparams = [
@@ -153,6 +153,6 @@ if __name__ == '__main__':
     print('Grid Search Best params')
     print(best_hyperparams_standard)
 
-    best_hyperparams_kfold = hyperparameter_tuning_with_k_fold(hyperparams, k=5)
+    best_hyperparams_kfold = hyperparameter_tuning_with_k_fold(hyperparams, k=3)
     print('Grid Search + CV (k=5)')
     print(best_hyperparams_kfold)
