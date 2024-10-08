@@ -16,12 +16,13 @@ class CNN(nn.Module):
         self.dropout = nn.Dropout(p=dropout_rate)  # Dropout layer added :)
         self.fc1 = nn.Linear(8 * 8 * 8, 128)  # assuming image size of 64x64
         self.fc2 = nn.Linear(128, num_classes)
+        self.dropout = nn.Dropout(dropout_rate)
 
     def forward(self, x):      
         x = self.pool(torch.relu(self.conv1(x)))
         x = self.pool(torch.relu(self.conv2(x)))
         x = self.pool(torch.relu(self.conv3(x)))
-        x = x.view(-1, 8 * 8 * 8)  # flattening 
+        x = x.view(-1, 8 * 8 * 8)
         x = torch.relu(self.fc1(x))
         x = self.dropout(x) 
         x = self.fc2(x)
