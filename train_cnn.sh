@@ -11,4 +11,4 @@ module load cuda
 module load python/3.10.13
 source ~/KDDProject2/kdd/bin/activate
 cd Tasks/Task\ 5/
-python base_model_cnn.py
+python train_cnn.py

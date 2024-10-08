@@ -3,15 +3,16 @@ import tensorflow as tf
 import numpy as np
 import math
 from torch.utils.data import DataLoader
+import torch 
 
 SAVE_PATH = '../processed_data/'
 HEIGHT = 64
 WIDTH = 64
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 def get_datasets(for_CNN=False, num_samples=None, val_size=0.2, batch_size=32):
-    '''
-    returns train_dataset [Type: tf.Dataset (batched) if batch_size != None], val_dataset, test_dataset , unique_styles
-    '''
+
     train_ds, val_ds, test_ds, unique_styles = load_data(for_CNN=for_CNN, num_samples=num_samples, val_size=val_size)
 
     if batch_size == None:
@@ -24,7 +25,7 @@ def get_datasets(for_CNN=False, num_samples=None, val_size=0.2, batch_size=32):
 
     if for_CNN:
         if val_ds != None:
-            val_ds.set_format(type='torch', columns=['img_pixels', 'label'])
+            val_ds.set_format(type='torch', columns=['img_pixels', 'label'], device=device)
         test_dataset = to_pytorch_dataloader(test_ds, batch_size=batch_size)
 
     return train_dataset, val_ds, test_dataset, unique_styles
@@ -88,5 +89,5 @@ def to_tf_dataset(ds, shape, output_shape, batch_size=32):
 
 
 def to_pytorch_dataloader(ds: Dataset, batch_size=32):
-    ds.set_format(type='torch', columns=['img_pixels', 'label'])
+    ds.set_format(type='torch', columns=['img_pixels', 'label'], device=device)
     return DataLoader(ds, batch_size=batch_size, shuffle=True)

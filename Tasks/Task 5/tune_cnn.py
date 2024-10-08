@@ -1,12 +1,15 @@
 from Models.Base_Models.CNN import CNNClassifier
-from load_data import get_datasets, to_pytorch_dataloader
+from load_data import get_datasets, to_pytorch_dataloader, load_data
 from datasets import Dataset
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.model_selection import KFold
 import itertools
 import numpy as np
+import torch
 
-NUM_SAMPLES = None
+NUM_SAMPLES = 20000
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 def hyperparameter_tuning(hyperparams):
     print('Starting Grid Search')
@@ -50,15 +53,15 @@ def hyperparameter_tuning(hyperparams):
 
 def k_fold_cross_validation(params, k=5):
 
-    train_dataset, _, test_dataset, unique_styles = get_datasets(
+    train_dataset, _, test_dataset, unique_styles = load_data(
         for_CNN=True, 
-        val_size=0.0,  
+        val_size=0.5,  
         num_samples=NUM_SAMPLES,
-        batch_size = None
     )
+
     test_dataset = to_pytorch_dataloader(test_dataset, batch_size=params['batch_size'])
-    X = np.array(train_dataset['img_pixels'])
-    y = np.array(train_dataset['label'])
+
+    X = np.zeros(train_dataset.num_rows)
 
     kf = KFold(n_splits=k, shuffle=True, random_state=42)
     accuracies = []
@@ -67,17 +70,15 @@ def k_fold_cross_validation(params, k=5):
     f1_scores = []
     val_losses = []
 
+
     for fold, (train_idx, val_idx) in enumerate(kf.split(X)):
         print(f"Fold {fold + 1}/{k}")
         
-        X_train, X_val = X[train_idx], X[val_idx]
-        y_train, y_val = y[train_idx], y[val_idx]
+        train_dataset_hf = train_dataset.select(train_idx, keep_in_memory=True)
 
-        train_dataset_fold = {'img_pixels': X_train, 'label': y_train}
-        val_dataset_fold = {'img_pixels': X_val, 'label': y_val}
-        train_dataset_hf = Dataset.from_dict(train_dataset_fold)
-        val_dataset_hf = Dataset.from_dict(val_dataset_fold)
-        val_dataset_hf.set_format(type='torch', columns=['img_pixels', 'label'])
+        val_dataset_hf = train_dataset.select(val_idx, keep_in_memory=True)
+
+        val_dataset_hf.set_format(type='torch', columns=['img_pixels', 'label'], device=device)
         train_dataset_batched = to_pytorch_dataloader(train_dataset_hf, batch_size=params['batch_size'])
         
         cnn_clf = CNNClassifier(
@@ -125,7 +126,7 @@ def hyperparameter_tuning_with_k_fold(hyperparams, k=5):
     for params in hyperparams:
         print(f"Testing with params: {params}")
 
-        avg_accuracy, avg_precision, avg_recall, avg_f1_score, avg_val_loss = k_fold_cross_validation(params, k=k)
+        avg_accuracy, _,_, _,_ = k_fold_cross_validation(params, k=k)
 
         if avg_accuracy > best_accuracy:
             best_accuracy = avg_accuracy
@@ -144,14 +145,15 @@ if __name__ == '__main__':
         'dropout_rate': [0.0, 0.1, 0.2]
     }
 
+
     hyperparams = [
         dict(zip(param_grid.keys(), values)) 
         for values in itertools.product(*param_grid.values())
     ]
 
-    best_hyperparams_standard = hyperparameter_tuning(hyperparams)
-    print('Grid Search Best params')
-    print(best_hyperparams_standard)
+    # best_hyperparams_standard = hyperparameter_tuning(hyperparams)
+    # print('Grid Search Best params')
+    # print(best_hyperparams_standard)
 
     best_hyperparams_kfold = hyperparameter_tuning_with_k_fold(hyperparams, k=3)
     print('Grid Search + CV (k=3)')

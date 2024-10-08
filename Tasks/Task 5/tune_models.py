@@ -5,11 +5,10 @@ from Models.Base_Models.KNN import KNNImageClassifier
 from load_data import get_datasets
 from datasets import DatasetDict
 from sklearn.metrics import  accuracy_score
-import warnings
-warnings.filterwarnings("ignore")
+
 
 if __name__ == '__main__':
-    NUM_SAMPLES = None
+    NUM_SAMPLES = 7000
     # load data like this for batched
     train_dataset_batched, val_dataset, test_dataset, unique_styles = get_datasets(for_CNN=False, val_size=0.2, 
                                                                               batch_size=32, num_samples=NUM_SAMPLES)
@@ -27,8 +26,8 @@ if __name__ == '__main__':
     # svm_clf.tune()
 
 
-    knn_clf = KNNImageClassifier(train_dataset, val_dataset, test_dataset, unique_styles, n_neighbors=20)
-    knn_clf.tune()
+    # knn_clf = KNNImageClassifier(train_dataset, val_dataset, test_dataset, unique_styles, n_neighbors=20)
+    # knn_clf.tune()
 
 
     xgb_clf = XGBoostClassifier(train_dataset, val_dataset, test_dataset, unique_styles, n_jobs=-1)

@@ -21,7 +21,7 @@ class XGBoostClassifier:
         # There is a lower level one that might be a better fit (easier to tune)
         self.clf = xgb.XGBClassifier(
             objective='multi:softmax', n_estimators=n_estimators, max_depth=max_depth,
-            learning_rate=learning_rate, n_jobs=n_jobs, subsample=subsample,
+            learning_rate=learning_rate, n_jobs=None, subsample=subsample,
             reg_lambda=reg_lambda, reg_alpha=reg_alpha, enable_categorical=True,
             random_state=RANDOM_STATE, device=device
             )
@@ -84,7 +84,7 @@ class XGBoostClassifier:
         print("Grid Search with CV K-fold=3")
         x_train, y_train = self.get_test_val_x_y(self.train_ds)
         grid_search = GridSearchCV(
-            estimator=self.clf, param_grid=param_grid, cv=3, n_jobs=-1)
+            estimator=self.clf, param_grid=param_grid, cv=3, n_jobs=1)
         grid_search.fit(x_train, y_train)
         print(f"Best parameters: {grid_search.best_params_} with accuracy: {grid_search.best_score_}")
         self.clf = grid_search.best_estimator_
