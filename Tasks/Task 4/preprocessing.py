@@ -12,7 +12,7 @@ WIDTH = 64
 CHANNELS = 3 # Should not matter if b&w
 SAVE_PATH = '../processed_data/'
 HF_MAP_BATCH_SIZE = 1000 # default = 1000 < 100 if u running on cuda
-NUM_PROCS = 3
+NUM_PROCS = 8
 # FLAGS
 CONVERT_TO_BW_FLAG = True
 AUGMENT_IMAGE_FLAG = False

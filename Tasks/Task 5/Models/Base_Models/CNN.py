@@ -3,43 +3,34 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, Dataset
-from sklearn.metrics import classification_report
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from datasets import Dataset as HFDataset
 
-# class ImgDataset(Dataset):
-#     def __init__(self, X, y):
-#         self.X = torch.tensor(X, dtype=torch.float32).reshape(32, 1, 64, 64)  # reshaping for channels
-#         self.y = torch.tensor(y, dtype=torch.long)
-
-#     def __len__(self):
-#         return len(self.X)
-
-#     def __getitem__(self, idx):
-#         return self.X[idx], self.y[idx]
-
 class CNN(nn.Module):
-    def __init__(self, num_classes, img_channels=3, dropout_rate = 0.0):
+    def __init__(self, num_classes, img_channels=1, dropout_rate=0.0):
         super(CNN, self).__init__()
-        self.conv1 = nn.Conv2d(img_channels, 32, kernel_size=3, padding=1)
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
-        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
+        self.conv1 = nn.Conv2d(img_channels, 4, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(4, 6, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv2d(6, 8, kernel_size=3, padding=1)
         self.pool = nn.MaxPool2d(2, 2)
-        self.fc1 = nn.Linear(128 * 8 * 8, 128)  # assuming image size of 64x64
+        self.dropout = nn.Dropout(p=dropout_rate)  # Dropout layer added :)
+        self.fc1 = nn.Linear(8 * 8 * 8, 128)  # assuming image size of 64x64
         self.fc2 = nn.Linear(128, num_classes)
         self.dropout = nn.Dropout(dropout_rate)
 
-    def forward(self, x):
+    def forward(self, x):      
         x = self.pool(torch.relu(self.conv1(x)))
         x = self.pool(torch.relu(self.conv2(x)))
         x = self.pool(torch.relu(self.conv3(x)))
-        x = x.view(-1, 128 * 8 * 8)  # flatten here
-        x = torch.relu(self.fc1(x))  # 1st fully connected layer
-        x = self.dropout(x) #apply dropout
-        x = self.fc2(x) # 2nd fully connected layer
+        x = x.view(-1, 8 * 8 * 8)
+        x = torch.relu(self.fc1(x))
+        x = self.dropout(x) 
+        x = self.fc2(x)
         return x
 
+
 class CNNClassifier:
-    def __init__(self, train_ds, val_ds: HFDataset, test_ds: HFDataset, unique_styles, batch_size=32, epochs=5, learning_rate=0.001):
+    def __init__(self, train_ds, val_ds, test_ds, unique_styles, batch_size=32, epochs=5, learning_rate=0.001, dropout_rate=0.0):
         self.train_ds = train_ds
         self.val_ds = val_ds
         self.test_ds = test_ds
@@ -48,13 +39,12 @@ class CNNClassifier:
         self.batch_size = batch_size
         self.learning_rate = learning_rate
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.model = CNN(num_classes=len(unique_styles)).to(self.device)
+        self.model = CNN(num_classes=len(unique_styles), dropout_rate=dropout_rate).to(self.device)  # Include dropout_rate
 
     def get_x_y(self, ds):
         return ds['img_pixels'], ds['label']
 
     def train(self):
-
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.Adam(self.model.parameters(), lr=self.learning_rate)
 
@@ -65,7 +55,7 @@ class CNNClassifier:
             for _, data in enumerate(self.train_ds):
                 images, labels = self.get_x_y(data)
                 images, labels = images.to(self.device), labels.to(self.device)
-                images = images.reshape(-1,1,64,64)
+                images = images.reshape(-1, 1, 64, 64)
                 optimizer.zero_grad()
                 outputs = self.model(images)
                 loss = criterion(outputs, labels)
@@ -73,43 +63,48 @@ class CNNClassifier:
                 optimizer.step()
 
                 running_loss += loss.item()
+
             val_loss = 0.0
             with torch.no_grad():
                 images, labels = self.get_x_y(self.val_ds)
                 images, labels = images.to(self.device), labels.to(self.device)
-                images = images.reshape(-1,1,64,64)
+                images = images.reshape(-1, 1, 64, 64)
                 outputs = self.model(images)
                 loss = criterion(outputs, labels)
-                val_loss+= loss.item()
+                val_loss += loss.item()
 
-            print(f'Epoch [{epoch + 1}/{self.epochs}], Loss: {running_loss/len(self.train_ds):.4f} \
-                  Validation Loss: {val_loss/len(self.val_ds):.4f}')
+            print(f'Epoch [{epoch + 1}/{self.epochs}], Loss: {running_loss/len(self.train_ds):.4f}, Validation Loss: {val_loss/len(self.val_ds):.4f}')
 
-    def evaluate(self):
+    def evaluate(self,print_res=True):
         self.model.eval()
-        correct = 0
-        total = 0
         all_preds = []
         all_labels = []
+        running_val_loss = 0.0
+
+        criterion = nn.CrossEntropyLoss()
 
         with torch.no_grad():
             for data in self.test_ds:
                 images, labels = self.get_x_y(data)
                 images, labels = images.to(self.device), labels.to(self.device)
-                images = images.reshape(-1,1,64,64)
+                images = images.reshape(-1, 1, 64, 64)
                 outputs = self.model(images)
-                _, predicted = torch.max(outputs, 1)
+                loss = criterion(outputs, labels)
+                running_val_loss += loss.item()
                 _, actual = torch.max(labels, 1)
-                total += labels.size(0)
-                correct += (predicted == actual).sum().item()
+
+                _, predicted = torch.max(outputs, 1)
                 all_preds.extend(predicted.cpu().numpy())
                 all_labels.extend(actual.cpu().numpy())
 
-        accuracy = 100 * correct / total
-        print(f"Test Accuracy: {accuracy:.2f}%")
-
-        print("\nClassification Report:")
-        print(classification_report(all_labels, all_preds, target_names=self.unique_styles))
+        accuracy = accuracy_score(all_labels, all_preds)
+        precision = precision_score(all_labels, all_preds, average='weighted')
+        recall = recall_score(all_labels, all_preds, average='weighted')
+        f1 = f1_score(all_labels, all_preds, average='weighted')
+        val_loss = running_val_loss / len(self.test_ds)
+        if print_res:
+            print(f"Test Loss: {val_loss:.4f}, Accuracy: {accuracy:.4f}, Precision: {precision:.4f}, Recall: {recall:.4f}, F1-Score: {f1:.4f}")
+        return accuracy, precision, recall, f1, val_loss
 
     def run(self):
         self.train()

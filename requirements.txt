@@ -1,10 +1,11 @@
 datasets
 numpy
 Pillow
-tensorflow[and-cuda]
+tensorflow
 scikit-learn
 torch
 torchvision
 pandas
 matplotlib
 tqdm
+xgboost
