@@ -1,0 +1,819 @@
+Requirement already satisfied: datasets in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (3.0.1)
+Requirement already satisfied: numpy in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.26.4)
+Requirement already satisfied: Pillow in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 3)) (10.4.0)
+Requirement already satisfied: tensorflow in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 4)) (2.17.0)
+Requirement already satisfied: scikit-learn in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (1.5.2)
+Requirement already satisfied: torch in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (2.4.1)
+Requirement already satisfied: torchvision in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (0.19.1)
+Requirement already satisfied: pandas in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (2.2.3)
+Requirement already satisfied: matplotlib in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (3.9.2)
+Requirement already satisfied: tqdm in ./kdd/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (4.66.5)
+Requirement already satisfied: multiprocess in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (0.70.16)
+Requirement already satisfied: requests>=2.32.2 in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (2.32.3)
+Requirement already satisfied: packaging in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (24.1)
+Requirement already satisfied: xxhash in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (3.5.0)
+Requirement already satisfied: dill<0.3.9,>=0.3.0 in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (0.3.8)
+Requirement already satisfied: aiohttp in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (3.10.9)
+Requirement already satisfied: pyyaml>=5.1 in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (6.0.2)
+Requirement already satisfied: pyarrow>=15.0.0 in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (17.0.0)
+Requirement already satisfied: filelock in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (3.16.1)
+Requirement already satisfied: fsspec[http]<=2024.6.1,>=2023.1.0 in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (2024.6.1)
+Requirement already satisfied: huggingface-hub>=0.22.0 in ./kdd/lib/python3.10/site-packages (from datasets->-r requirements.txt (line 1)) (0.25.1)
+Requirement already satisfied: six>=1.12.0 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (1.16.0)
+Requirement already satisfied: absl-py>=1.0.0 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (2.1.0)
+Requirement already satisfied: gast!=0.5.0,!=0.5.1,!=0.5.2,>=0.2.1 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (0.6.0)
+Requirement already satisfied: wrapt>=1.11.0 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (1.16.0)
+Requirement already satisfied: opt-einsum>=2.3.2 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (3.4.0)
+Requirement already satisfied: tensorboard<2.18,>=2.17 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (2.17.1)
+Requirement already satisfied: libclang>=13.0.0 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (18.1.1)
+Requirement already satisfied: setuptools in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (65.5.0)
+Requirement already satisfied: ml-dtypes<0.5.0,>=0.3.1 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (0.4.1)
+Requirement already satisfied: termcolor>=1.1.0 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (2.5.0)
+Requirement already satisfied: tensorflow-io-gcs-filesystem>=0.23.1 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (0.37.1)
+Requirement already satisfied: h5py>=3.10.0 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (3.12.1)
+Requirement already satisfied: typing-extensions>=3.6.6 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (4.12.2)
+Requirement already satisfied: flatbuffers>=24.3.25 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (24.3.25)
+Requirement already satisfied: keras>=3.2.0 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (3.6.0)
+Requirement already satisfied: google-pasta>=0.1.1 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (0.2.0)
+Requirement already satisfied: protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<5.0.0dev,>=3.20.3 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (4.25.5)
+Requirement already satisfied: astunparse>=1.6.0 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (1.6.3)
+Requirement already satisfied: grpcio<2.0,>=1.24.3 in ./kdd/lib/python3.10/site-packages (from tensorflow->-r requirements.txt (line 4)) (1.66.2)
+Requirement already satisfied: scipy>=1.6.0 in ./kdd/lib/python3.10/site-packages (from scikit-learn->-r requirements.txt (line 5)) (1.14.1)
+Requirement already satisfied: joblib>=1.2.0 in ./kdd/lib/python3.10/site-packages (from scikit-learn->-r requirements.txt (line 5)) (1.4.2)
+Requirement already satisfied: threadpoolctl>=3.1.0 in ./kdd/lib/python3.10/site-packages (from scikit-learn->-r requirements.txt (line 5)) (3.5.0)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.1.105 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (12.1.105)
+Requirement already satisfied: sympy in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (1.13.3)
+Requirement already satisfied: nvidia-cufft-cu12==11.0.2.54 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (11.0.2.54)
+Requirement already satisfied: nvidia-cublas-cu12==12.1.3.1 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (12.1.3.1)
+Requirement already satisfied: triton==3.0.0 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (3.0.0)
+Requirement already satisfied: nvidia-cudnn-cu12==9.1.0.70 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (9.1.0.70)
+Requirement already satisfied: nvidia-cusparse-cu12==12.1.0.106 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (12.1.0.106)
+Requirement already satisfied: networkx in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (3.3)
+Requirement already satisfied: nvidia-cusolver-cu12==11.4.5.107 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (11.4.5.107)
+Requirement already satisfied: nvidia-nvtx-cu12==12.1.105 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (12.1.105)
+Requirement already satisfied: nvidia-curand-cu12==10.3.2.106 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (10.3.2.106)
+Requirement already satisfied: jinja2 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: nvidia-nccl-cu12==2.20.5 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (2.20.5)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.1.105 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (12.1.105)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.1.105 in ./kdd/lib/python3.10/site-packages (from torch->-r requirements.txt (line 6)) (12.1.105)
+Requirement already satisfied: nvidia-nvjitlink-cu12 in ./kdd/lib/python3.10/site-packages (from nvidia-cusolver-cu12==11.4.5.107->torch->-r requirements.txt (line 6)) (12.6.77)
+Requirement already satisfied: tzdata>=2022.7 in ./kdd/lib/python3.10/site-packages (from pandas->-r requirements.txt (line 8)) (2024.2)
+Requirement already satisfied: pytz>=2020.1 in ./kdd/lib/python3.10/site-packages (from pandas->-r requirements.txt (line 8)) (2024.2)
+Requirement already satisfied: python-dateutil>=2.8.2 in ./kdd/lib/python3.10/site-packages (from pandas->-r requirements.txt (line 8)) (2.9.0.post0)
+Requirement already satisfied: kiwisolver>=1.3.1 in ./kdd/lib/python3.10/site-packages (from matplotlib->-r requirements.txt (line 9)) (1.4.7)
+Requirement already satisfied: fonttools>=4.22.0 in ./kdd/lib/python3.10/site-packages (from matplotlib->-r requirements.txt (line 9)) (4.54.1)
+Requirement already satisfied: pyparsing>=2.3.1 in ./kdd/lib/python3.10/site-packages (from matplotlib->-r requirements.txt (line 9)) (3.1.4)
+Requirement already satisfied: contourpy>=1.0.1 in ./kdd/lib/python3.10/site-packages (from matplotlib->-r requirements.txt (line 9)) (1.3.0)
+Requirement already satisfied: cycler>=0.10 in ./kdd/lib/python3.10/site-packages (from matplotlib->-r requirements.txt (line 9)) (0.12.1)
+Requirement already satisfied: wheel<1.0,>=0.23.0 in ./kdd/lib/python3.10/site-packages (from astunparse>=1.6.0->tensorflow->-r requirements.txt (line 4)) (0.44.0)
+Requirement already satisfied: multidict<7.0,>=4.5 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (6.1.0)
+Requirement already satisfied: attrs>=17.3.0 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (24.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (1.4.1)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (4.0.3)
+Requirement already satisfied: aiosignal>=1.1.2 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (1.3.1)
+Requirement already satisfied: aiohappyeyeballs>=2.3.0 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (2.4.3)
+Requirement already satisfied: yarl<2.0,>=1.12.0 in ./kdd/lib/python3.10/site-packages (from aiohttp->datasets->-r requirements.txt (line 1)) (1.13.1)
+Requirement already satisfied: optree in ./kdd/lib/python3.10/site-packages (from keras>=3.2.0->tensorflow->-r requirements.txt (line 4)) (0.13.0)
+Requirement already satisfied: namex in ./kdd/lib/python3.10/site-packages (from keras>=3.2.0->tensorflow->-r requirements.txt (line 4)) (0.0.8)
+Requirement already satisfied: rich in ./kdd/lib/python3.10/site-packages (from keras>=3.2.0->tensorflow->-r requirements.txt (line 4)) (13.9.2)
+Requirement already satisfied: certifi>=2017.4.17 in ./kdd/lib/python3.10/site-packages (from requests>=2.32.2->datasets->-r requirements.txt (line 1)) (2024.8.30)
+Requirement already satisfied: charset-normalizer<4,>=2 in ./kdd/lib/python3.10/site-packages (from requests>=2.32.2->datasets->-r requirements.txt (line 1)) (3.3.2)
+Requirement already satisfied: urllib3<3,>=1.21.1 in ./kdd/lib/python3.10/site-packages (from requests>=2.32.2->datasets->-r requirements.txt (line 1)) (2.2.3)
+Requirement already satisfied: idna<4,>=2.5 in ./kdd/lib/python3.10/site-packages (from requests>=2.32.2->datasets->-r requirements.txt (line 1)) (3.10)
+Requirement already satisfied: tensorboard-data-server<0.8.0,>=0.7.0 in ./kdd/lib/python3.10/site-packages (from tensorboard<2.18,>=2.17->tensorflow->-r requirements.txt (line 4)) (0.7.2)
+Requirement already satisfied: werkzeug>=1.0.1 in ./kdd/lib/python3.10/site-packages (from tensorboard<2.18,>=2.17->tensorflow->-r requirements.txt (line 4)) (3.0.4)
+Requirement already satisfied: markdown>=2.6.8 in ./kdd/lib/python3.10/site-packages (from tensorboard<2.18,>=2.17->tensorflow->-r requirements.txt (line 4)) (3.7)
+Requirement already satisfied: MarkupSafe>=2.0 in ./kdd/lib/python3.10/site-packages (from jinja2->torch->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in ./kdd/lib/python3.10/site-packages (from sympy->torch->-r requirements.txt (line 6)) (1.3.0)
+Requirement already satisfied: markdown-it-py>=2.2.0 in ./kdd/lib/python3.10/site-packages (from rich->keras>=3.2.0->tensorflow->-r requirements.txt (line 4)) (3.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in ./kdd/lib/python3.10/site-packages (from rich->keras>=3.2.0->tensorflow->-r requirements.txt (line 4)) (2.18.0)
+Requirement already satisfied: mdurl~=0.1 in ./kdd/lib/python3.10/site-packages (from markdown-it-py>=2.2.0->rich->keras>=3.2.0->tensorflow->-r requirements.txt (line 4)) (0.1.2)
+
+[notice] A new release of pip is available: 23.0.1 -> 24.2
+[notice] To update, run: pip install --upgrade pip
+2024-10-07 14:34:58.157719: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-10-07 14:34:58.169731: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-10-07 14:34:58.183591: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-10-07 14:34:58.187791: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-10-07 14:34:58.199273: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-10-07 14:35:00.002885: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/sklearn/metrics/_classification.py:1531: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+Starting Grid Search
+Testing with params: {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Epoch [1/1], Loss: 2.5208, Validation Loss: 0.0002
+Accuracy: 0.26752608962553714, Precision: 0.26732374829900013, Recall: 0.26752608962553714, F1: 0.2134196750203168, Validation Loss: 2.3692405015814537
+Best accuracy so far: 0.26752608962553714 with params {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.1}
+Epoch [1/1], Loss: 2.5535, Validation Loss: 0.0002
+Accuracy: 0.26249232658072436, Precision: 0.22576669257922055, Recall: 0.26249232658072436, F1: 0.21312969276701796, Validation Loss: 2.387389266023449
+Best accuracy so far: 0.26752608962553714 with params {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.2}
+Epoch [1/1], Loss: 2.5814, Validation Loss: 0.0002
+Accuracy: 0.25426642111724984, Precision: 0.2040781105215753, Recall: 0.25426642111724984, F1: 0.18561682365558324, Validation Loss: 2.395128043492635
+Best accuracy so far: 0.26752608962553714 with params {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.0001, 'dropout_rate': 0.0}
+Epoch [1/1], Loss: 2.6471, Validation Loss: 0.0002
+Accuracy: 0.23044812768569675, Precision: 0.18746218884399288, Recall: 0.23044812768569675, F1: 0.16955297214097215, Validation Loss: 2.5326919221410567
+Best accuracy so far: 0.26752608962553714 with params {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.0001, 'dropout_rate': 0.1}
+Epoch [1/1], Loss: 2.6926, Validation Loss: 0.0002
+Accuracy: 0.2196439533456108, Precision: 0.18913402846859131, Recall: 0.2196439533456108, F1: 0.14848335637166274, Validation Loss: 2.5644254588613324
+Best accuracy so far: 0.26752608962553714 with params {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.0001, 'dropout_rate': 0.2}
+Epoch [1/1], Loss: 2.6898, Validation Loss: 0.0002
+Accuracy: 0.22885205647636586, Precision: 0.16012801243121735, Recall: 0.22885205647636586, F1: 0.1567161454649846, Validation Loss: 2.537833520711637
+Best accuracy so far: 0.26752608962553714 with params {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Epoch [1/3], Loss: 2.5103, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.2671, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.1337, Validation Loss: 0.0001
+Accuracy: 0.29772866789441377, Precision: 0.311557594613972, Recall: 0.29772866789441377, F1: 0.2758026715929105, Validation Loss: 2.223347969382417
+Best accuracy so far: 0.29772866789441377 with params {'batch_size': 16, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.1}
+Epoch [1/3], Loss: 2.5449, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.3303, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.2134, Validation Loss: 0.0002
+Accuracy: 0.2952731737262124, Precision: 0.2810913116205595, Recall: 0.2952731737262124, F1: 0.25951276115904504, Validation Loss: 2.2453853067229774
+Best accuracy so far: 0.29772866789441377 with params {'batch_size': 16, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.2}
+Epoch [1/3], Loss: 2.5677, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.3429, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.2297, Validation Loss: 0.0002
+Accuracy: 0.2850828729281768, Precision: 0.2795086194453917, Recall: 0.2850828729281768, F1: 0.2581854625274658, Validation Loss: 2.2853045865601183
+Best accuracy so far: 0.29772866789441377 with params {'batch_size': 16, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 3, 'learning_rate': 0.0001, 'dropout_rate': 0.0}
+Epoch [1/3], Loss: 2.6372, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.4765, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.4125, Validation Loss: 0.0002
+Accuracy: 0.2620012277470841, Precision: 0.22646372296085002, Recall: 0.2620012277470841, F1: 0.21205022216935024, Validation Loss: 2.394423032274433
+Best accuracy so far: 0.29772866789441377 with params {'batch_size': 16, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 3, 'learning_rate': 0.0001, 'dropout_rate': 0.1}
+Epoch [1/3], Loss: 2.6540, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.4926, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.4251, Validation Loss: 0.0002
+Accuracy: 0.24284837323511357, Precision: 0.22537732008539094, Recall: 0.24284837323511357, F1: 0.2049890081705713, Validation Loss: 2.432890022268482
+Best accuracy so far: 0.29772866789441377 with params {'batch_size': 16, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 3, 'learning_rate': 0.0001, 'dropout_rate': 0.2}
+Epoch [1/3], Loss: 2.6769, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.5077, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.4357, Validation Loss: 0.0002
+Accuracy: 0.25696746470227133, Precision: 0.23061843790281264, Recall: 0.25696746470227133, F1: 0.2111702527399933, Validation Loss: 2.4040621699071396
+Best accuracy so far: 0.29772866789441377 with params {'batch_size': 16, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Epoch [1/5], Loss: 2.5444, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.3048, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.1680, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.0417, Validation Loss: 0.0001
+Epoch [5/5], Loss: 1.9145, Validation Loss: 0.0002
+Accuracy: 0.31221608348680174, Precision: 0.30671577743107825, Recall: 0.31221608348680174, F1: 0.29819097989213045, Validation Loss: 2.2459551224521563
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.1}
+Epoch [1/5], Loss: 2.5377, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.3102, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.1889, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.0858, Validation Loss: 0.0002
+Epoch [5/5], Loss: 1.9828, Validation Loss: 0.0002
+Accuracy: 0.3010435850214856, Precision: 0.2898847726001401, Recall: 0.3010435850214856, F1: 0.2778632761386175, Validation Loss: 2.2416432242767486
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.2}
+Epoch [1/5], Loss: 2.5919, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.3788, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.2741, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.1879, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.1108, Validation Loss: 0.0002
+Accuracy: 0.3042357274401473, Precision: 0.28629821100873215, Recall: 0.3042357274401473, F1: 0.268813376736668, Validation Loss: 2.260897058832879
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.0001, 'dropout_rate': 0.0}
+Epoch [1/5], Loss: 2.6702, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.5072, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.4374, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.3918, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.3523, Validation Loss: 0.0002
+Accuracy: 0.2676488643339472, Precision: 0.23919984289090881, Recall: 0.2676488643339472, F1: 0.222654947782208, Validation Loss: 2.358970235258925
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.0001, 'dropout_rate': 0.1}
+Epoch [1/5], Loss: 2.6744, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.5006, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.4303, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.3719, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.3178, Validation Loss: 0.0002
+Accuracy: 0.27710251688152243, Precision: 0.24622852294895878, Recall: 0.27710251688152243, F1: 0.2408485765555034, Validation Loss: 2.322610587465997
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.0001, 'dropout_rate': 0.2}
+Epoch [1/5], Loss: 2.6615, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.4875, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.4117, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.3557, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.3097, Validation Loss: 0.0002
+Accuracy: 0.283609576427256, Precision: 0.27172473477724945, Recall: 0.283609576427256, F1: 0.23688604440612146, Validation Loss: 2.299566541933546
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 10, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Epoch [1/10], Loss: 2.5207, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.2748, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.1450, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.0257, Validation Loss: 0.0002
+Epoch [5/10], Loss: 1.8995, Validation Loss: 0.0002
+Epoch [6/10], Loss: 1.7707, Validation Loss: 0.0002
+Epoch [7/10], Loss: 1.6363, Validation Loss: 0.0002
+Epoch [8/10], Loss: 1.5066, Validation Loss: 0.0002
+Epoch [9/10], Loss: 1.3838, Validation Loss: 0.0002
+Epoch [10/10], Loss: 1.2770, Validation Loss: 0.0002
+Accuracy: 0.27661141804788214, Precision: 0.27478178404691994, Recall: 0.27661141804788214, F1: 0.26937486488511353, Validation Loss: 2.880500738293517
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 10, 'learning_rate': 0.001, 'dropout_rate': 0.1}
+Epoch [1/10], Loss: 2.5480, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.3221, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.1945, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.0846, Validation Loss: 0.0002
+Epoch [5/10], Loss: 1.9746, Validation Loss: 0.0002
+Epoch [6/10], Loss: 1.8581, Validation Loss: 0.0002
+Epoch [7/10], Loss: 1.7438, Validation Loss: 0.0002
+Epoch [8/10], Loss: 1.6289, Validation Loss: 0.0002
+Epoch [9/10], Loss: 1.5220, Validation Loss: 0.0002
+Epoch [10/10], Loss: 1.4247, Validation Loss: 0.0002
+Accuracy: 0.28864333947206877, Precision: 0.2756612335868298, Recall: 0.28864333947206877, F1: 0.2790892893513586, Validation Loss: 2.7129517817029765
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 10, 'learning_rate': 0.001, 'dropout_rate': 0.2}
+Epoch [1/10], Loss: 2.6025, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.3846, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.2700, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.1805, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.0979, Validation Loss: 0.0002
+Epoch [6/10], Loss: 2.0131, Validation Loss: 0.0002
+Epoch [7/10], Loss: 1.9334, Validation Loss: 0.0002
+Epoch [8/10], Loss: 1.8531, Validation Loss: 0.0002
+Epoch [9/10], Loss: 1.7705, Validation Loss: 0.0002
+Epoch [10/10], Loss: 1.6946, Validation Loss: 0.0002
+Accuracy: 0.283732351135666, Precision: 0.2718779394464326, Recall: 0.283732351135666, F1: 0.2663851315162974, Validation Loss: 2.492278745361403
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 10, 'learning_rate': 0.0001, 'dropout_rate': 0.0}
+Epoch [1/10], Loss: 2.6432, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.4810, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.4188, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.3727, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.3303, Validation Loss: 0.0002
+Epoch [6/10], Loss: 2.2887, Validation Loss: 0.0002
+Epoch [7/10], Loss: 2.2506, Validation Loss: 0.0002
+Epoch [8/10], Loss: 2.2149, Validation Loss: 0.0002
+Epoch [9/10], Loss: 2.1792, Validation Loss: 0.0002
+Epoch [10/10], Loss: 2.1464, Validation Loss: 0.0002
+Accuracy: 0.28667894413750766, Precision: 0.29048336517160545, Recall: 0.28667894413750766, F1: 0.26825693808522855, Validation Loss: 2.2776012168211097
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 10, 'learning_rate': 0.0001, 'dropout_rate': 0.1}
+Epoch [1/10], Loss: 2.6872, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.5263, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.4487, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.4005, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.3559, Validation Loss: 0.0002
+Epoch [6/10], Loss: 2.3147, Validation Loss: 0.0002
+Epoch [7/10], Loss: 2.2745, Validation Loss: 0.0002
+Epoch [8/10], Loss: 2.2386, Validation Loss: 0.0002
+Epoch [9/10], Loss: 2.2011, Validation Loss: 0.0002
+Epoch [10/10], Loss: 2.1694, Validation Loss: 0.0002
+Accuracy: 0.3005524861878453, Precision: 0.2785894824522773, Recall: 0.3005524861878453, F1: 0.2670268791760535, Validation Loss: 2.269472932581808
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 16, 'epochs': 10, 'learning_rate': 0.0001, 'dropout_rate': 0.2}
+Epoch [1/10], Loss: 2.6945, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.5237, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.4525, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.3981, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.3550, Validation Loss: 0.0002
+Epoch [6/10], Loss: 2.3119, Validation Loss: 0.0002
+Epoch [7/10], Loss: 2.2762, Validation Loss: 0.0002
+Epoch [8/10], Loss: 2.2427, Validation Loss: 0.0002
+Epoch [9/10], Loss: 2.2136, Validation Loss: 0.0002
+Epoch [10/10], Loss: 2.1823, Validation Loss: 0.0002
+Accuracy: 0.29539594843462247, Precision: 0.28121900405035405, Recall: 0.29539594843462247, F1: 0.26745255992500855, Validation Loss: 2.2588072998850954
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Epoch [1/1], Loss: 2.5711, Validation Loss: 0.0002
+Accuracy: 0.26151012891344383, Precision: 0.22979416592103913, Recall: 0.26151012891344383, F1: 0.20353331472283148, Validation Loss: 2.4084732471727857
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.1}
+Epoch [1/1], Loss: 2.5696, Validation Loss: 0.0002
+Accuracy: 0.25659914057704114, Precision: 0.2350942860856931, Recall: 0.25659914057704114, F1: 0.20322393411624373, Validation Loss: 2.40870347256754
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.2}
+Epoch [1/1], Loss: 2.5883, Validation Loss: 0.0002
+Accuracy: 0.26028238182934316, Precision: 0.20573649305106648, Recall: 0.26028238182934316, F1: 0.20051511947922257, Validation Loss: 2.4360304505217307
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 1, 'learning_rate': 0.0001, 'dropout_rate': 0.0}
+Epoch [1/1], Loss: 2.6607, Validation Loss: 0.0002
+Accuracy: 0.21497851442602825, Precision: 0.15873948897333823, Recall: 0.21497851442602825, F1: 0.14563445111149098, Validation Loss: 2.579246736975277
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 1, 'learning_rate': 0.0001, 'dropout_rate': 0.1}
+Epoch [1/1], Loss: 2.6866, Validation Loss: 0.0002
+Accuracy: 0.2276243093922652, Precision: 0.16712495365463476, Recall: 0.2276243093922652, F1: 0.15987962104360334, Validation Loss: 2.5726128643634274
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 1, 'learning_rate': 0.0001, 'dropout_rate': 0.2}
+Epoch [1/1], Loss: 2.7109, Validation Loss: 0.0002
+Accuracy: 0.22504604051565377, Precision: 0.15789882885779907, Recall: 0.22504604051565377, F1: 0.1523567451872687, Validation Loss: 2.578921692044127
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Epoch [1/3], Loss: 2.5446, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.3068, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.1640, Validation Loss: 0.0002
+Accuracy: 0.29085328422344997, Precision: 0.32472169513424176, Recall: 0.29085328422344997, F1: 0.271798040437144, Validation Loss: 2.26439314215791
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.1}
+Epoch [1/3], Loss: 2.5756, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.3449, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.2212, Validation Loss: 0.0002
+Accuracy: 0.29441375076734194, Precision: 0.2972116676537591, Recall: 0.29441375076734194, F1: 0.2613472477969044, Validation Loss: 2.251335673238717
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.2}
+Epoch [1/3], Loss: 2.5888, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.3738, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.2640, Validation Loss: 0.0002
+Accuracy: 0.2978514426028238, Precision: 0.29636663098033283, Recall: 0.2978514426028238, F1: 0.25903142324244116, Validation Loss: 2.2354646233951345
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 3, 'learning_rate': 0.0001, 'dropout_rate': 0.0}
+Epoch [1/3], Loss: 2.6668, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.5003, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.4312, Validation Loss: 0.0002
+Accuracy: 0.249109883364027, Precision: 0.20875512512053837, Recall: 0.249109883364027, F1: 0.18851457572189276, Validation Loss: 2.4363259661431407
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 3, 'learning_rate': 0.0001, 'dropout_rate': 0.1}
+Epoch [1/3], Loss: 2.6989, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.5419, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.4791, Validation Loss: 0.0002
+Accuracy: 0.2523020257826888, Precision: 0.20712442234705156, Recall: 0.2523020257826888, F1: 0.20131588452005927, Validation Loss: 2.4459242400001076
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 3, 'learning_rate': 0.0001, 'dropout_rate': 0.2}
+Epoch [1/3], Loss: 2.7111, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.5543, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.4758, Validation Loss: 0.0002
+Accuracy: 0.24874155923879682, Precision: 0.21520773975067967, Recall: 0.24874155923879682, F1: 0.1973475152986551, Validation Loss: 2.442533026489557
+Best accuracy so far: 0.31221608348680174 with params {'batch_size': 16, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Epoch [1/5], Loss: 2.5572, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.3218, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.1837, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.0584, Validation Loss: 0.0001
+Epoch [5/5], Loss: 1.9336, Validation Loss: 0.0001
+Accuracy: 0.3195825659914058, Precision: 0.31916007206647856, Recall: 0.3195825659914058, F1: 0.29805405160545584, Validation Loss: 2.1996198116564285
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.1}
+Epoch [1/5], Loss: 2.5718, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.3332, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.2104, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.1074, Validation Loss: 0.0001
+Epoch [5/5], Loss: 2.0109, Validation Loss: 0.0002
+Accuracy: 0.31700429711479433, Precision: 0.31423376939212505, Recall: 0.31700429711479433, F1: 0.2995344765120173, Validation Loss: 2.1869184975530587
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.2}
+Epoch [1/5], Loss: 2.6065, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.3773, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.2638, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.1788, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.1044, Validation Loss: 0.0002
+Accuracy: 0.3107427869858809, Precision: 0.30711296692383, Recall: 0.3107427869858809, F1: 0.28374141925299357, Validation Loss: 2.196063660172855
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.0001, 'dropout_rate': 0.0}
+Epoch [1/5], Loss: 2.6591, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.5038, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.4350, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.3890, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.3525, Validation Loss: 0.0002
+Accuracy: 0.2594229588704727, Precision: 0.24543099418718556, Recall: 0.2594229588704727, F1: 0.21382450523753654, Validation Loss: 2.3754037627986833
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.0001, 'dropout_rate': 0.1}
+Epoch [1/5], Loss: 2.6827, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.5283, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.4464, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.3931, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.3498, Validation Loss: 0.0002
+Accuracy: 0.2736648250460405, Precision: 0.25022436524619524, Recall: 0.2736648250460405, F1: 0.23454431855430716, Validation Loss: 2.344862253993165
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.0001, 'dropout_rate': 0.2}
+Epoch [1/5], Loss: 2.7159, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.5528, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.4751, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.4315, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.3958, Validation Loss: 0.0002
+Accuracy: 0.26752608962553714, Precision: 0.2275277537853137, Recall: 0.26752608962553714, F1: 0.22069908340311842, Validation Loss: 2.3809321777493344
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 10, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Epoch [1/10], Loss: 2.5500, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.2836, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.1366, Validation Loss: 0.0001
+Epoch [4/10], Loss: 2.0118, Validation Loss: 0.0001
+Epoch [5/10], Loss: 1.8685, Validation Loss: 0.0002
+Epoch [6/10], Loss: 1.7172, Validation Loss: 0.0002
+Epoch [7/10], Loss: 1.5589, Validation Loss: 0.0002
+Epoch [8/10], Loss: 1.3907, Validation Loss: 0.0002
+Epoch [9/10], Loss: 1.2309, Validation Loss: 0.0002
+Epoch [10/10], Loss: 1.0842, Validation Loss: 0.0002
+Accuracy: 0.26973603437691834, Precision: 0.2675142731876451, Recall: 0.26973603437691834, F1: 0.26669558116716235, Validation Loss: 3.0387979904810587
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 10, 'learning_rate': 0.001, 'dropout_rate': 0.1}
+Epoch [1/10], Loss: 2.5631, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.3202, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.1914, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.0860, Validation Loss: 0.0002
+Epoch [5/10], Loss: 1.9830, Validation Loss: 0.0002
+Epoch [6/10], Loss: 1.8828, Validation Loss: 0.0002
+Epoch [7/10], Loss: 1.7703, Validation Loss: 0.0002
+Epoch [8/10], Loss: 1.6587, Validation Loss: 0.0002
+Epoch [9/10], Loss: 1.5495, Validation Loss: 0.0002
+Epoch [10/10], Loss: 1.4402, Validation Loss: 0.0002
+Accuracy: 0.296378146101903, Precision: 0.28908310433482, Recall: 0.296378146101903, F1: 0.28682856603141593, Validation Loss: 2.570050032933553
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 10, 'learning_rate': 0.001, 'dropout_rate': 0.2}
+Epoch [1/10], Loss: 2.6064, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.3872, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.2765, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.1790, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.0958, Validation Loss: 0.0002
+Epoch [6/10], Loss: 2.0035, Validation Loss: 0.0002
+Epoch [7/10], Loss: 1.9101, Validation Loss: 0.0002
+Epoch [8/10], Loss: 1.8154, Validation Loss: 0.0002
+Epoch [9/10], Loss: 1.7238, Validation Loss: 0.0002
+Epoch [10/10], Loss: 1.6384, Validation Loss: 0.0002
+Accuracy: 0.3123388581952118, Precision: 0.3023917460864777, Recall: 0.3123388581952118, F1: 0.2865648022561547, Validation Loss: 2.445212895262475
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 10, 'learning_rate': 0.0001, 'dropout_rate': 0.0}
+Epoch [1/10], Loss: 2.6636, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.5000, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.4376, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.3902, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.3513, Validation Loss: 0.0002
+Epoch [6/10], Loss: 2.3154, Validation Loss: 0.0002
+Epoch [7/10], Loss: 2.2786, Validation Loss: 0.0002
+Epoch [8/10], Loss: 2.2469, Validation Loss: 0.0002
+Epoch [9/10], Loss: 2.2111, Validation Loss: 0.0002
+Epoch [10/10], Loss: 2.1813, Validation Loss: 0.0002
+Accuracy: 0.2860650705954573, Precision: 0.28427143068814936, Recall: 0.2860650705954573, F1: 0.2681827100869889, Validation Loss: 2.3086338211508357
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 10, 'learning_rate': 0.0001, 'dropout_rate': 0.1}
+Epoch [1/10], Loss: 2.6968, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.5341, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.4706, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.4290, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.3917, Validation Loss: 0.0002
+Epoch [6/10], Loss: 2.3557, Validation Loss: 0.0002
+Epoch [7/10], Loss: 2.3265, Validation Loss: 0.0002
+Epoch [8/10], Loss: 2.2959, Validation Loss: 0.0002
+Epoch [9/10], Loss: 2.2678, Validation Loss: 0.0002
+Epoch [10/10], Loss: 2.2407, Validation Loss: 0.0002
+Accuracy: 0.2903621853898097, Precision: 0.28404181390465616, Recall: 0.2903621853898097, F1: 0.25325206288837, Validation Loss: 2.280597424507141
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 32, 'epochs': 10, 'learning_rate': 0.0001, 'dropout_rate': 0.2}
+Epoch [1/10], Loss: 2.7042, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.5463, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.4754, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.4253, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.3891, Validation Loss: 0.0002
+Epoch [6/10], Loss: 2.3589, Validation Loss: 0.0002
+Epoch [7/10], Loss: 2.3290, Validation Loss: 0.0002
+Epoch [8/10], Loss: 2.2982, Validation Loss: 0.0002
+Epoch [9/10], Loss: 2.2702, Validation Loss: 0.0002
+Epoch [10/10], Loss: 2.2419, Validation Loss: 0.0002
+Accuracy: 0.29662369551872314, Precision: 0.28199465509295774, Recall: 0.29662369551872314, F1: 0.26298036530179686, Validation Loss: 2.270724037581799
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Epoch [1/1], Loss: 2.5936, Validation Loss: 0.0002
+Accuracy: 0.2456721915285451, Precision: 0.27040599386455316, Recall: 0.2456721915285451, F1: 0.17972273905954297, Validation Loss: 2.445212723687291
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.1}
+Epoch [1/1], Loss: 2.5750, Validation Loss: 0.0002
+Accuracy: 0.24530386740331492, Precision: 0.20729759116774274, Recall: 0.24530386740331492, F1: 0.1879500124165827, Validation Loss: 2.4202697351574898
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.2}
+Epoch [1/1], Loss: 2.5954, Validation Loss: 0.0002
+Accuracy: 0.24849600982197667, Precision: 0.20327244277232873, Recall: 0.24849600982197667, F1: 0.1927165644724031, Validation Loss: 2.435462048277259
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 1, 'learning_rate': 0.0001, 'dropout_rate': 0.0}
+Epoch [1/1], Loss: 2.6985, Validation Loss: 0.0002
+Accuracy: 0.22074892572130142, Precision: 0.16678517505722013, Recall: 0.22074892572130142, F1: 0.1578742609471403, Validation Loss: 2.57910387031734
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 1, 'learning_rate': 0.0001, 'dropout_rate': 0.1}
+Epoch [1/1], Loss: 2.7366, Validation Loss: 0.0002
+Accuracy: 0.21240024554941683, Precision: 0.1397200978899263, Recall: 0.21240024554941683, F1: 0.1472779201340205, Validation Loss: 2.611000671982765
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 1, 'learning_rate': 0.0001, 'dropout_rate': 0.2}
+Epoch [1/1], Loss: 2.7528, Validation Loss: 0.0002
+Accuracy: 0.21817065684469, Precision: 0.13167073603902255, Recall: 0.21817065684469, F1: 0.15580934246970848, Validation Loss: 2.6373517494648695
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Epoch [1/3], Loss: 2.5544, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.3086, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.1657, Validation Loss: 0.0001
+Accuracy: 0.3087783916513198, Precision: 0.3212406164093541, Recall: 0.3087783916513198, F1: 0.2658203653130176, Validation Loss: 2.2115702629089355
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.1}
+Epoch [1/3], Loss: 2.5670, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.3356, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.2045, Validation Loss: 0.0002
+Accuracy: 0.30902394106813996, Precision: 0.2846550434261401, Recall: 0.30902394106813996, F1: 0.28169502522300566, Validation Loss: 2.223819580860436
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 3, 'learning_rate': 0.001, 'dropout_rate': 0.2}
+Epoch [1/3], Loss: 2.6131, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.3767, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.2618, Validation Loss: 0.0002
+Accuracy: 0.2936771025168815, Precision: 0.2924351253917442, Recall: 0.2936771025168815, F1: 0.25620663635663693, Validation Loss: 2.2647838834673166
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 3, 'learning_rate': 0.0001, 'dropout_rate': 0.0}
+Epoch [1/3], Loss: 2.7177, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.5632, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.4846, Validation Loss: 0.0002
+Accuracy: 0.23806015960712093, Precision: 0.21293705322226505, Recall: 0.23806015960712093, F1: 0.1889340842263905, Validation Loss: 2.470387203618884
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 3, 'learning_rate': 0.0001, 'dropout_rate': 0.1}
+Epoch [1/3], Loss: 2.7289, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.5707, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.5017, Validation Loss: 0.0002
+Accuracy: 0.25377532228360955, Precision: 0.23356683133823694, Recall: 0.25377532228360955, F1: 0.20456928589249102, Validation Loss: 2.461370026692748
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 3, 'learning_rate': 0.0001, 'dropout_rate': 0.2}
+Epoch [1/3], Loss: 2.7382, Validation Loss: 0.0002
+Epoch [2/3], Loss: 2.5863, Validation Loss: 0.0002
+Epoch [3/3], Loss: 2.5186, Validation Loss: 0.0002
+Accuracy: 0.24861878453038674, Precision: 0.20860787304417003, Recall: 0.24861878453038674, F1: 0.18678917617080196, Validation Loss: 2.466800643131137
+Best accuracy so far: 0.3195825659914058 with params {'batch_size': 32, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Epoch [1/5], Loss: 2.5521, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.3134, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.1770, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.0660, Validation Loss: 0.0001
+Epoch [5/5], Loss: 1.9542, Validation Loss: 0.0001
+Accuracy: 0.32400245549416823, Precision: 0.32670741951644655, Recall: 0.32400245549416823, F1: 0.3058493588754599, Validation Loss: 2.1616849526762962
+Best accuracy so far: 0.32400245549416823 with params {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.1}
+Epoch [1/5], Loss: 2.5894, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.3678, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.2473, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.1519, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.0557, Validation Loss: 0.0002
+Accuracy: 0.32130141190914674, Precision: 0.31014600961099165, Recall: 0.32130141190914674, F1: 0.29828750882548355, Validation Loss: 2.191330132074654
+Best accuracy so far: 0.32400245549416823 with params {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.2}
+Epoch [1/5], Loss: 2.6053, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.3811, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.2740, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.1846, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.1043, Validation Loss: 0.0002
+Accuracy: 0.31393492940454265, Precision: 0.2961146000751311, Recall: 0.31393492940454265, F1: 0.2820025147724722, Validation Loss: 2.197971844114363
+Best accuracy so far: 0.32400245549416823 with params {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.0001, 'dropout_rate': 0.0}
+Epoch [1/5], Loss: 2.7036, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.5442, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.4747, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.4278, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.3912, Validation Loss: 0.0002
+Accuracy: 0.26065070595457335, Precision: 0.23148040520294919, Recall: 0.26065070595457335, F1: 0.2143647321044101, Validation Loss: 2.398118318989873
+Best accuracy so far: 0.32400245549416823 with params {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.0001, 'dropout_rate': 0.1}
+Epoch [1/5], Loss: 2.7302, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.5747, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.5042, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.4615, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.4274, Validation Loss: 0.0002
+Accuracy: 0.25426642111724984, Precision: 0.23877043460039482, Recall: 0.25426642111724984, F1: 0.1946545533683909, Validation Loss: 2.4218450393527746
+Best accuracy so far: 0.32400245549416823 with params {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.0001, 'dropout_rate': 0.2}
+Epoch [1/5], Loss: 2.7308, Validation Loss: 0.0002
+Epoch [2/5], Loss: 2.5791, Validation Loss: 0.0002
+Epoch [3/5], Loss: 2.5070, Validation Loss: 0.0002
+Epoch [4/5], Loss: 2.4604, Validation Loss: 0.0002
+Epoch [5/5], Loss: 2.4253, Validation Loss: 0.0002
+Accuracy: 0.26101903007980354, Precision: 0.24002619375783257, Recall: 0.26101903007980354, F1: 0.21553740303443472, Validation Loss: 2.3983140978962183
+Best accuracy so far: 0.32400245549416823 with params {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 10, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Epoch [1/10], Loss: 2.5702, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.3248, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.1953, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.0889, Validation Loss: 0.0001
+Epoch [5/10], Loss: 1.9869, Validation Loss: 0.0001
+Epoch [6/10], Loss: 1.8742, Validation Loss: 0.0002
+Epoch [7/10], Loss: 1.7515, Validation Loss: 0.0002
+Epoch [8/10], Loss: 1.6279, Validation Loss: 0.0002
+Epoch [9/10], Loss: 1.4949, Validation Loss: 0.0002
+Epoch [10/10], Loss: 1.3580, Validation Loss: 0.0002
+Accuracy: 0.3039901780233272, Precision: 0.29935702372558276, Recall: 0.3039901780233272, F1: 0.2971864632639815, Validation Loss: 2.5693562366068363
+Best accuracy so far: 0.32400245549416823 with params {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 10, 'learning_rate': 0.001, 'dropout_rate': 0.1}
+Epoch [1/10], Loss: 2.6184, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.3820, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.2616, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.1692, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.0893, Validation Loss: 0.0002
+Epoch [6/10], Loss: 1.9952, Validation Loss: 0.0002
+Epoch [7/10], Loss: 1.9104, Validation Loss: 0.0002
+Epoch [8/10], Loss: 1.8122, Validation Loss: 0.0002
+Epoch [9/10], Loss: 1.7154, Validation Loss: 0.0002
+Epoch [10/10], Loss: 1.6138, Validation Loss: 0.0002
+Accuracy: 0.3039901780233272, Precision: 0.29791096027330244, Recall: 0.3039901780233272, F1: 0.2928206126851127, Validation Loss: 2.3335117269307375
+Best accuracy so far: 0.32400245549416823 with params {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 10, 'learning_rate': 0.001, 'dropout_rate': 0.2}
+Epoch [1/10], Loss: 2.6171, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.4010, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.2845, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.1870, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.0968, Validation Loss: 0.0002
+Epoch [6/10], Loss: 2.0088, Validation Loss: 0.0002
+Epoch [7/10], Loss: 1.9100, Validation Loss: 0.0002
+Epoch [8/10], Loss: 1.8140, Validation Loss: 0.0002
+Epoch [9/10], Loss: 1.7078, Validation Loss: 0.0002
+Epoch [10/10], Loss: 1.6110, Validation Loss: 0.0002
+Accuracy: 0.3025168815224064, Precision: 0.2855433239279379, Recall: 0.3025168815224064, F1: 0.2864137024816618, Validation Loss: 2.3916242634877563
+Best accuracy so far: 0.32400245549416823 with params {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 10, 'learning_rate': 0.0001, 'dropout_rate': 0.0}
+Epoch [1/10], Loss: 2.7120, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.5484, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.4720, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.4246, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.3888, Validation Loss: 0.0002
+Epoch [6/10], Loss: 2.3591, Validation Loss: 0.0002
+Epoch [7/10], Loss: 2.3344, Validation Loss: 0.0002
+Epoch [8/10], Loss: 2.3098, Validation Loss: 0.0002
+Epoch [9/10], Loss: 2.2888, Validation Loss: 0.0002
+Epoch [10/10], Loss: 2.2677, Validation Loss: 0.0002
+Accuracy: 0.28704726826273785, Precision: 0.28730502005135417, Recall: 0.28704726826273785, F1: 0.2500853210685417, Validation Loss: 2.328077678568661
+Best accuracy so far: 0.32400245549416823 with params {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 10, 'learning_rate': 0.0001, 'dropout_rate': 0.1}
+Epoch [1/10], Loss: 2.7348, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.5833, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.5127, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.4673, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.4321, Validation Loss: 0.0002
+Epoch [6/10], Loss: 2.4006, Validation Loss: 0.0002
+Epoch [7/10], Loss: 2.3693, Validation Loss: 0.0002
+Epoch [8/10], Loss: 2.3421, Validation Loss: 0.0002
+Epoch [9/10], Loss: 2.3158, Validation Loss: 0.0002
+Epoch [10/10], Loss: 2.2947, Validation Loss: 0.0002
+Accuracy: 0.2772252915899325, Precision: 0.2752501544025355, Recall: 0.2772252915899325, F1: 0.23351846910062632, Validation Loss: 2.328140487894416
+Best accuracy so far: 0.32400245549416823 with params {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Testing with params: {'batch_size': 64, 'epochs': 10, 'learning_rate': 0.0001, 'dropout_rate': 0.2}
+Epoch [1/10], Loss: 2.7387, Validation Loss: 0.0002
+Epoch [2/10], Loss: 2.5893, Validation Loss: 0.0002
+Epoch [3/10], Loss: 2.5118, Validation Loss: 0.0002
+Epoch [4/10], Loss: 2.4618, Validation Loss: 0.0002
+Epoch [5/10], Loss: 2.4232, Validation Loss: 0.0002
+Epoch [6/10], Loss: 2.3923, Validation Loss: 0.0002
+Epoch [7/10], Loss: 2.3663, Validation Loss: 0.0002
+Epoch [8/10], Loss: 2.3397, Validation Loss: 0.0002
+Epoch [9/10], Loss: 2.3173, Validation Loss: 0.0002
+Epoch [10/10], Loss: 2.2979, Validation Loss: 0.0002
+Accuracy: 0.2794352363413137, Precision: 0.256854125365299, Recall: 0.2794352363413137, F1: 0.23344321667531437, Validation Loss: 2.3227100064978004
+Best accuracy so far: 0.32400245549416823 with params {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Best parameters: {'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0} with accuracy: 0.32400245549416823
+Grid Search Best params
+{'batch_size': 64, 'epochs': 5, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Starting Grid Search + CV (k=3)
+Testing with params: {'batch_size': 16, 'epochs': 1, 'learning_rate': 0.001, 'dropout_rate': 0.0}
+Fold 1/3
+Traceback (most recent call last):
+  File "/home/afrenk/KDDProject2/Tasks/Task 5/tune_cnn.py", line 156, in <module>
+    best_hyperparams_kfold = hyperparameter_tuning_with_k_fold(hyperparams, k=3)
+  File "/home/afrenk/KDDProject2/Tasks/Task 5/tune_cnn.py", line 128, in hyperparameter_tuning_with_k_fold
+    avg_accuracy, avg_precision, avg_recall, avg_f1_score, avg_val_loss = k_fold_cross_validation(params, k=k)
+  File "/home/afrenk/KDDProject2/Tasks/Task 5/tune_cnn.py", line 94, in k_fold_cross_validation
+    cnn_clf.train()
+  File "/home/afrenk/KDDProject2/Tasks/Task 5/Models/Base_Models/CNN.py", line 71, in train
+    outputs = self.model(images)
+  File "/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/afrenk/KDDProject2/kdd/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/afrenk/KDDProject2/Tasks/Task 5/Models/Base_Models/CNN.py", line 21, in forward
+    x = self.pool(torch.relu(self.conv1(x)))
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 11.93 GiB. GPU 0 has a total capacity of 23.49 GiB of which 4.05 GiB is free. Including non-PyTorch memory, this process has 19.43 GiB memory in use. Of the allocated memory 12.34 GiB is allocated by PyTorch, and 6.81 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
